@@ -1,0 +1,122 @@
+.icon {
+   background: url(../assets/img/Sprites.64af8f61.svg) no-repeat;
+   width: 24px;
+   height: 24px;
+   cursor: pointer;
+}
+.icon + .icon {
+   margin-left: 8px;
+}
+.icon--option {
+   background-position: -425px -88px;
+}
+.icon--menu {
+   background-position: -843px -30px;
+}
+.icon--menu-collapse {
+   background-position: -312px -32px;
+}
+.icon--chervon-down {
+   background-position: -1124px -357px;
+}
+.icon--bell {
+   background-position: -257px -32px;
+}
+.icon--message {
+   background-position: -368px -32px;
+}
+.icon--questioon {
+   background-position: -201px -33px;
+}
+.icon--no-avatar {
+   background-position: -352px -894px;
+   width: 32px;
+   height: 32px;
+}
+.icon--general {
+   background-position: -29px -1629px;
+}
+.icon--general--selected {
+   background-position: -30px -1585px !important;
+}
+.icon--cash {
+   background-position: -73px -1628px;
+}
+.icon--deposits {
+   background-position: -117px -1630px;
+}
+.icon--purchase {
+   background-position: -161px -1630px;
+}
+.icon--sell {
+   background-position: -205px -1628px;
+}
+.icon--billManagement {
+   background-position: -249px -1629px;
+}
+.icon--warehouse {
+   background-position: -291px -1629px;
+}
+.icon--tools {
+   background-position: -335px -1630px;
+}
+.icon--fixedAssets {
+   background-position: -378px -1630px;
+}
+.icon--tax {
+   background-position: -423px -1630px;
+}
+.icon--price {
+   background-position: -467px -1629px;
+}
+.icon--synthetic {
+   background-position: -510px -1629px;
+}
+.icon--budget {
+   background-position: -378px -1660px;
+}
+.icon--report {
+   background-position: -547px -1631px;
+}
+.icon--financialAnalysis {
+   background-position: -204px -1662px;
+}
+.icon--refresh {
+   background-position: -1096px -88px;
+}
+.icon--excel {
+   background-position: -1265px -88px;
+}
+.icon--dropdown {
+   background-position: -887px -350px;
+   border: 1px solid #fff;
+   width: 36px;
+   height: 36px;
+}
+.icon--dropdown:hover {
+   background-color: #eee;
+}
+/* .icon--dropdown:focus {
+   
+} */
+.icon--help {
+   background-position: -88px -144px;
+}
+.icon--close {
+   background-position: -144px -144px;
+}
+.icon__help-popup {
+   width: 36px;
+   height: 36px;
+   background-position: -832px -462px;
+}
+.icon__error-popup {
+   height: 36px;
+   width: 36px;
+   background-position: -752px -462px;
+}
+.icon__search {
+   background-position: -990px -358px;
+   width: 20px;
+   height: 20px;
+}
