@@ -4,15 +4,12 @@ const getters = {
    employeeDetailTitle: (state) => state.employeeDetailTitle,
    isAlert: (state) => state.isAlert,
    formMode: (state) => state.formMode,
-   filter: {
-      pageSize: (state) => state.filter.pageSize,
-      pageNumber: (state) => state.filter.pageNumber,
-      employeeFilter: (state) => state.filter.employeeFilter,
-   },
+   filter: (state) => state.filter,
    employeeList: (state) => state.employeeList,
    employee: (state) => state.employee,
    totalEmployees: (state) => state.totalEmployees,
    totalPages: (state) => state.totalPages,
    checkedEmployeeIds: (state) => state.checkedEmployeeIds,
+   FIELD_NAME: (state) => state.FIELD_NAME,
 };
 export default getters;

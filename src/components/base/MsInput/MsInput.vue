@@ -1,12 +1,17 @@
 <template>
   <div class="wrapper-input" :class="inputWidth">
-    <label :title="isTooltip ? inputLabel : ''">
+    <label
+      :title="isTooltip ? inputLabel : ''"
+      :class="inputLabel ? 'label-input' : ''"
+    >
+      {{ inputLabel }}
       <span v-show="inputRequired" style="color: red">(*)</span>
       <input
         :type="inputType"
         :value="modelValue"
         class="input"
-        :class="{ 'input-error': errorMessage }"
+        :class="{ 'input-error': errorMessage, 'input-icon': icon }"
+        :placeholder="placeholder"
       />
       <div v-if="icon" class="icon" :class="icon"></div>
       <span v-if="errorMessage" class="msg-input-error hide-text-ellipsis">{{
@@ -24,6 +29,7 @@ export default {
     isTooltip: Boolean,
     inputRequired: Boolean,
     modelValue: String,
+    placeholder: String,
     icon: String,
   },
 };
@@ -37,7 +43,5 @@ export default {
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
-}
-.wrapper-input .icon:hover {
 }
 </style>

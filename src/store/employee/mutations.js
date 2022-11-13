@@ -21,9 +21,9 @@ const mutations = {
       }
    },
    SET_EMPLOYEES(state, payload) {
-      state.employeeList = payload.Data;
-      state.totalEmployees = payload.TotalRecords;
-      state.totalPages = payload.TotalPages;
+      state.employeeList = payload.data;
+      state.totalEmployees = payload.totalRecords;
+      state.totalPages = payload.totalPages;
       state.checkedEmployeeIds = [];
    },
    SET_FILTER(state, payload) {

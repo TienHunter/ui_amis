@@ -1,3 +1,11 @@
+.icon-wrapper {
+   width: 36px;
+   height: 36px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+}
 .icon {
    background: url(../assets/img/Sprites.64af8f61.svg) no-repeat;
    width: 24px;
@@ -105,17 +113,17 @@
 .icon--close {
    background-position: -144px -144px;
 }
-.icon__help-popup {
+.icon--help-popup {
    width: 36px;
    height: 36px;
    background-position: -832px -462px;
 }
-.icon__error-popup {
+.icon--error-popup {
    height: 36px;
    width: 36px;
    background-position: -752px -462px;
 }
-.icon__search {
+.icon--search {
    background-position: -990px -358px;
    width: 20px;
    height: 20px;

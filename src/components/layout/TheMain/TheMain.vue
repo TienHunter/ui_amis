@@ -1,9 +1,12 @@
 <template>
-  <div class="main"></div>
+  <EmployeeList />
 </template>
 
 <script>
-export default {};
+import EmployeeList from "@/views/employee/EmployeeList/EmployeeList.vue";
+export default {
+  components: { EmployeeList },
+};
 </script>
 
 <style>

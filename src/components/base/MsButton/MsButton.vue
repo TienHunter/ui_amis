@@ -37,8 +37,5 @@ export default {
   },
 };
 </script>
- 
-<style lang="css" scoped>
-@import "./TheButton.css";
-</style>
+
  

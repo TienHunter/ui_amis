@@ -1,5 +1,4 @@
-import { ALERT_ACTION } from "@/i18n";
-
+import { ALERT_ACTION, FIELD_NAME } from "@/i18n";
 const state = {
    isLoading: false,
    isEmployeeDetails: false,
@@ -21,6 +20,7 @@ const state = {
       message: "",
       action: ALERT_ACTION.DEFAULT,
    },
+   FIELD_NAME,
 };
 
 export default state;
