@@ -144,7 +144,7 @@ th > input {
    background: #eeeeee;
 }
 /*  pagination */
-.m-table_pagination {
+.table_pagination {
    height: 48px;
    justify-content: space-between;
    /* position: sticky;

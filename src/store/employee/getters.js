@@ -7,9 +7,9 @@ const getters = {
    filter: (state) => state.filter,
    employeeList: (state) => state.employeeList,
    employee: (state) => state.employee,
-   totalEmployees: (state) => state.totalEmployees,
+   totalRecords: (state) => state.totalRecords,
    totalPages: (state) => state.totalPages,
-   checkedEmployeeIds: (state) => state.checkedEmployeeIds,
+   checkedEmployeeIDs: (state) => state.checkedEmployeeIDs,
    FIELD_NAME: (state) => state.FIELD_NAME,
 };
 export default getters;

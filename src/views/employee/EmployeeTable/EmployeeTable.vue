@@ -50,12 +50,16 @@
         <tr
           v-for="(item, index) in employeeList"
           :key="index"
-          @dbclick="onClickEditEmployee(item.EmployeeId)"
+          @dbclick="onClickEditEmployee(item.EmployeeID)"
         >
           <td class="td-anchor td-anchor--start">
-            <input type="checkbox" :value="item.EmployeeId" />
+            <input
+              type="checkbox"
+              :value="item.EmployeeID"
+              @change="toggleCheckedEmployeeIDs(item.EmployeeID)"
+            />
           </td>
-          <td @dbclick="onClickEditEmployee(item.EmployeeId)">
+          <td>
             {{ convertNullString(item.EmployeeCode) }}
           </td>
           <td>{{ convertNullString(item.EmployeeName) }}</td>
@@ -73,14 +77,14 @@
             class="td-anchor td-anchor--end d-flex-auto"
             :style="indexRe === index ? 'z-index:1' : ''"
           >
-            <span class="" @click="onClickEditEmployee(item.EmployeeId)"
+            <span class="" @click="onClickEditEmployee(item.EmployeeID)"
               >Sửa</span
             >
 
             <button
               type="button"
               class="btn-dropdown"
-              :style="indexRe === index ? 'border-color:#0075c0' : ''"
+              :style="indexRe === index ? 'bordeColor:#0075c0' : ''"
               style="position: relative"
               @click.stop="handleToggleDropdownAction(index)"
             >
@@ -88,7 +92,7 @@
                 <li class="dropdown__item">Nhân bản</li>
                 <li
                   class="dropdown__item"
-                  @click="onClickDeleteRecord(item.EmployeeId)"
+                  @click="onClickDeleteRecord(item.EmployeeID)"
                 >
                   Xóa
                 </li>
@@ -102,7 +106,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   created() {
     const me = this;
@@ -111,9 +115,16 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(["FIELD_NAME", "employeeList"]),
+    ...mapGetters([
+      "FIELD_NAME",
+      "employeeList",
+      "checkedEmployeeIDs",
+      "employee",
+    ]),
   },
   methods: {
+    ...mapActions(["toggleCheckedEmployeeIDs"]),
+
     convertNullString(str) {
       return str ? str : "";
     },

@@ -12,9 +12,9 @@ const state = {
    },
    employeeList: [],
    employee: {},
-   totalEmployees: 0,
+   totalRecords: 0,
    totalPages: 0,
-   checkedEmployeeIds: [],
+   checkedEmployeeIDs: [],
    alert: {
       type: "success",
       message: "",

@@ -35,6 +35,7 @@
         </div>
       </div>
       <EmployeeTable />
+      <EmployeePaging />
     </div>
   </div>
 </template>
@@ -44,11 +45,13 @@ import { mapGetters, mapActions } from "vuex";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import EmployeeTable from "@/views/employee/EmployeeTable/EmployeeTable.vue";
+import EmployeePaging from "../EmployeePaging/EmployeePaging.vue";
 export default {
   components: {
     MsButton,
     MsInput,
     EmployeeTable,
+    EmployeePaging,
   },
   created() {
     this.getEmployees();

@@ -22,7 +22,7 @@ const mutations = {
    },
    SET_EMPLOYEES(state, payload) {
       state.employeeList = payload.data;
-      state.totalEmployees = payload.totalRecords;
+      state.totalRecords = payload.totalRecords;
       state.totalPages = payload.totalPages;
       state.checkedEmployeeIds = [];
    },
@@ -35,7 +35,7 @@ const mutations = {
    // filter
    // employeeList
    // employee
-   // totalEmployees
+   // totalRecords
    // totalPages
 };
 export default mutations;
