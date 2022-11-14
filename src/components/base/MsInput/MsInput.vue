@@ -8,14 +8,17 @@
       <span v-show="inputRequired" style="color: red">(*)</span>
       <input
         :type="inputType"
-        :value="modelValue"
         class="input"
-        :class="{ 'input-error': errorMessage, 'input-icon': icon }"
+        :class="{ 'input-error': errorMess, 'input-icon': icon }"
         :placeholder="placeholder"
+        :tabindex="tabIndex"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+        v-on:keyup="$emit('keyup')"
       />
       <div v-if="icon" class="icon" :class="icon"></div>
-      <span v-if="errorMessage" class="msg-input-error hide-text-ellipsis">{{
-        errorMessage
+      <span v-if="errorMess" class="msg-input-error hide-text-ellipsis">{{
+        errorMess
       }}</span>
     </label>
   </div>
@@ -31,7 +34,11 @@ export default {
     modelValue: String,
     placeholder: String,
     icon: String,
+    errorMess: String,
+    tabIndex: Number,
   },
+  emits: ["update:modelValue", "keyup"],
+  methods: {},
 };
 </script>
 

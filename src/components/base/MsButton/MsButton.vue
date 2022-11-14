@@ -5,6 +5,7 @@
       'btn-primary': isPrimary,
       'btn-sub': isSecondary,
       'btn-disable': isDisable,
+      'btn-danger': isDanger,
     }"
   >
     {{ title }}
@@ -27,6 +28,10 @@ export default {
       default: false,
     },
     isSecondary: {
+      type: Boolean,
+      default: false,
+    },
+    isDanger: {
       type: Boolean,
       default: false,
     },

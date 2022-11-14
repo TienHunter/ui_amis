@@ -12,24 +12,27 @@ const mutations = {
       state.isAlert = !state.isAlert;
    },
    TOGGLE_CHECKED_EMPLOYEES(state, employeeID) {
-      if (!state.checkedEmployeeIds.includes(employeeID)) {
-         state.checkedEmployeeIds.push(employeeID);
+      if (!state.checkedEmployeeIDs.includes(employeeID)) {
+         state.checkedEmployeeIDs.push(employeeID);
       } else {
-         const checkedEmployeeIds = [...state.checkedEmployeeIds];
-         checkedEmployeeIds.filter((item) => item !== employeeID);
-         state.checkedEmployeeIds = [...checkedEmployeeIds];
+         state.checkedEmployeeIDs = state.checkedEmployeeIDs.filter(
+            (item) => item !== employeeID
+         );
       }
    },
    SET_EMPLOYEES(state, payload) {
       state.employeeList = payload.data;
       state.totalRecords = payload.totalRecords;
       state.totalPages = payload.totalPages;
-      state.checkedEmployeeIds = [];
+      state.checkedEmployeeIDs = [];
    },
    SET_FILTER(state, payload) {
       state.filter.pageSize = payload.pageSize;
       state.filter.pageNumber = payload.pageNumber;
       state.filter.employeeFilter = payload.employeeFilter;
+   },
+   SET_EMPLTY_CHECKED_EMPLOYEES(state) {
+      state.checkedEmployeeIDs = [];
    },
    // formMode
    // filter

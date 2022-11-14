@@ -43,5 +43,11 @@ const actions = {
    toggleCheckedEmployeeIDs({ commit }, employeeID) {
       commit("TOGGLE_CHECKED_EMPLOYEES", employeeID);
    },
+   setEmptyCheckedEmployees({ commit }) {
+      commit("SET_EMPLTY_CHECKED_EMPLOYEES");
+   },
+   toggleEmployeeDetail({ commit }) {
+      commit("TOGGLE_EMPLOYEE_DETAIL");
+   },
 };
 export default actions;

@@ -29,7 +29,6 @@
 
 <script>
 export default {
-  name: "BaseCombobox",
   props: ["selectedItem", "className", "dataList", "errorMess", "tabIndex"],
   emits: ["selectAction"],
   methods: {

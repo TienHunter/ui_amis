@@ -11,7 +11,7 @@
    text-align: left;
    padding-bottom: 16px;
 }
-.wrapper-input input {
+.wrapper-input .input {
    margin: 8px 0;
 }
 .input {
@@ -89,4 +89,10 @@ input[type="checkbox"]:not(:checked) {
    to {
       transform: rotate(0deg);
    }
+}
+.input-radio-wrapper {
+   height: 36px;
+   display: flex;
+   align-items: center;
+   margin-right: 12px;
 }

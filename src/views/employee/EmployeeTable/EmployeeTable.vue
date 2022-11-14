@@ -6,9 +6,9 @@
           <th style="min-width: 40px; width: 40px" class="th-anchor">
             <input
               type="checkbox"
-              @change="checkedAllRecord"
+              @change="checkAll"
               ref="checkedAllRecord"
-              :checked="falseCheckAll"
+              :checked="employeeList.length == checkedEmployeeIDs.length"
             />
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
@@ -56,7 +56,8 @@
             <input
               type="checkbox"
               :value="item.EmployeeID"
-              @change="toggleCheckedEmployeeIDs(item.EmployeeID)"
+              @change="checkedOne(item.EmployeeID)"
+              :checked="checkedEmployeeIDs.includes(item.EmployeeID)"
             />
           </td>
           <td>
@@ -123,7 +124,7 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(["toggleCheckedEmployeeIDs"]),
+    ...mapActions(["toggleCheckedEmployeeIDs", "setEmptyCheckedEmployees"]),
 
     convertNullString(str) {
       return str ? str : "";
@@ -155,6 +156,39 @@ export default {
         this.indexRe = -1;
       } else {
         this.indexRe = index;
+      }
+    },
+    /**
+     * push or remove employeeID ra khỏi checkedEmployeeIds
+     * @param {string} employeeId
+     * Author: VDTIEN (14/11/2022)
+     */
+    checkedOne(employeeId) {
+      const me = this;
+      // console.log(employeeId);
+      me.toggleCheckedEmployeeIDs(employeeId);
+      // console.log(me.checkedEmployeeIDs)
+      if (me.checkedEmployeeIDs.length == me.employeeList.length) {
+        me.$refs.checkedAllRecord.checked = true;
+      } else {
+        me.$refs.checkedAllRecord.checked = false;
+      }
+    },
+    /**
+     * checked tất cả hoặc unchecked tất cả bản ghi
+     * @param
+     * Author: VDTIEN (14/11/2022)
+     */
+    checkAll(event) {
+      const me = this;
+      if (event.target.checked) {
+        for (const emp of me.employeeList) {
+          if (!me.checkedEmployeeIDs.includes(emp.EmployeeID)) {
+            me.toggleCheckedEmployeeIDs(emp.EmployeeID);
+          }
+        }
+      } else {
+        me.setEmptyCheckedEmployees();
       }
     },
   },

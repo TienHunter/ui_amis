@@ -12,10 +12,14 @@
           <div class="batch-excecution d-flex" style="flex-direction: column">
             <div class="d-flex">
               <div class="batch-excecution-title">Thực hiện hàng loạt:</div>
-              <MsButton title="Xoa" />
+              <MsButton
+                title="Xoa"
+                :isDanger="true"
+                :isDisable="!checkedEmployeeIDs.length"
+              />
             </div>
             <div style="align-self: flex-start; padding-left: 12px">
-              Đã chọn : 0
+              Đã chọn : {{ checkedEmployeeIDs.length }}
             </div>
           </div>
         </div>
@@ -38,6 +42,7 @@
       <EmployeePaging />
     </div>
   </div>
+  <EmployeeDetail />
 </template>
 
 <script>
@@ -46,18 +51,21 @@ import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import EmployeeTable from "@/views/employee/EmployeeTable/EmployeeTable.vue";
 import EmployeePaging from "../EmployeePaging/EmployeePaging.vue";
+import EmployeeDetail from "../EmployeeDetail/EmployeeDetail.vue";
+
 export default {
   components: {
     MsButton,
     MsInput,
     EmployeeTable,
     EmployeePaging,
+    EmployeeDetail,
   },
   created() {
     this.getEmployees();
   },
   computed: {
-    ...mapGetters(["employeeList"]),
+    ...mapGetters(["employeeList", "checkedEmployeeIDs"]),
   },
   methods: {
     ...mapActions(["getEmployees"]),
