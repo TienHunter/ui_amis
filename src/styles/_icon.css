@@ -113,18 +113,32 @@
 .icon--close {
    background-position: -144px -144px;
 }
-.icon--help-popup {
-   width: 36px;
-   height: 36px;
-   background-position: -832px -462px;
-}
-.icon--error-popup {
-   height: 36px;
-   width: 36px;
-   background-position: -752px -462px;
-}
+
 .icon--search {
    background-position: -990px -358px;
    width: 20px;
    height: 20px;
+}
+.icon-danger {
+   background-position: -29px -960px;
+   width: 36px;
+   height: 36px;
+}
+
+.icon-question {
+   background-position: -832px -462px;
+   width: 36px;
+   height: 36px;
+}
+
+.icon-warning {
+   background-position: -599px -464px;
+   width: 36px;
+   height: 36px;
+}
+
+.icon-success {
+   background-position: -990px -462px;
+   width: 36px;
+   height: 36px;
 }

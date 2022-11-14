@@ -1,6 +1,6 @@
 const getters = {
    isLoading: (state) => state.isLoading,
-   isEmployeeDetails: (state) => state.isEmployeeDetails,
+   isEmployeeDetail: (state) => state.isEmployeeDetail,
    employeeDetailTitle: (state) => state.employeeDetailTitle,
    isAlert: (state) => state.isAlert,
    formMode: (state) => state.formMode,
@@ -11,5 +11,7 @@ const getters = {
    totalPages: (state) => state.totalPages,
    checkedEmployeeIDs: (state) => state.checkedEmployeeIDs,
    FIELD_NAME: (state) => state.FIELD_NAME,
+   GENDER: (state) => state.GENDER,
+   alert: (state) => state.alert,
 };
 export default getters;

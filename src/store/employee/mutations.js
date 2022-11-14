@@ -3,7 +3,7 @@ const mutations = {
       state.employeeDetailTitle = title;
    },
    TOGGLE_EMPLOYEE_DETAIL(state) {
-      state.isEmployeeDetails = !state.isEmployeeDetails;
+      state.isEmployeeDetail = !state.isEmployeeDetail;
    },
    TOGGLE_LOADING(state) {
       state.isLoading = !state.isLoading;
@@ -33,6 +33,17 @@ const mutations = {
    },
    SET_EMPLTY_CHECKED_EMPLOYEES(state) {
       state.checkedEmployeeIDs = [];
+   },
+   SET_FORM_MODE(state, payload) {
+      state.formMode = payload;
+   },
+   INIT_EMPLOYEE(state, payload) {
+      state.employee.Gender = payload.Gender;
+   },
+   SET_ALTER(state, payload) {
+      state.alter.type = payload.type;
+      state.alter.message = payload.message;
+      state.alter.action = payload.action;
    },
    // formMode
    // filter

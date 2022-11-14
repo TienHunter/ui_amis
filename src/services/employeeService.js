@@ -16,4 +16,12 @@ const getEmployees = async (
       console.error(error);
    }
 };
-export { getEmployees };
+const deleteEmployee = async (employeeID) => {
+   try {
+      let res = await httpEmployee.delete(`/${employeeID}}`);
+      return res.data;
+   } catch (error) {
+      console.log(error);
+   }
+};
+export { getEmployees, deleteEmployee };

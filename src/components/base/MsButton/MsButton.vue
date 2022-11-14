@@ -7,6 +7,7 @@
       'btn-disable': isDisable,
       'btn-danger': isDanger,
     }"
+    :tabindex="tabIndex"
   >
     {{ title }}
   </button>
@@ -39,6 +40,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    tabIndex: Number,
   },
 };
 </script>

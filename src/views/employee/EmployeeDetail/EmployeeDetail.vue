@@ -2,22 +2,22 @@
   <div class="dialog-wrapper">
     <div class="dialog-container">
       <div class="dialog__header d-flex">
-        <div class="dialog-header__title mr-12">Thông tin nhân viên</div>
+        <div class="dialog-header__title mr-12">{{ employeeDetailTitle }}</div>
         <div class="dialog-header__option d-flex">
           <label class="wrapper-checkbox row-8">
             <input class="input-checkbox" type="checkbox" />
-            Là khách hàng
+            {{ FIELD_NAME.IsCustomer }}
           </label>
           <label class="wrapper-checkbox row-8">
             <input class="input-checkbox" type="checkbox" />
-            Là Nhà cung cấp
+            {{ FIELD_NAME.IsProvider }}
           </label>
         </div>
         <div class="dialog-header__action d-flex ml-auto">
-          <button type="button" class="mr-8">
+          <button type="button" class="mr-8" title="Trợ giúp">
             <div class="icon icon--help"></div>
           </button>
-          <button type="button">
+          <button type="button" title="Đóng (ESC)" @click="onClickBtnClose">
             <div class="icon icon--close"></div>
           </button>
         </div>
@@ -44,6 +44,7 @@
                   v-model="employee.EmployeeName"
                   :errorMess="errors.EmployeeName"
                   :tabIndex="3"
+                  ref="EmployeeName"
                 />
               </div>
               <div class="wrapper-input">
@@ -55,31 +56,31 @@
                     :className="'department-list'"
                     :selectedItem="employee.DepartmentName"
                     @selectAction="selectDepartment"
-                    :tabIndex="6"
+                    :tabIndex="4"
                   />
                 </label>
               </div>
               <MsInput
-                :inputLabel="'Chức danh'"
-                v-model="employee.EmployeePosition"
-                :errorMess="errors.EmployeePosition"
-                :tabIndex="9"
+                :inputLabel="FIELD_NAME.JobPositionName"
+                v-model="employee.JobPositionName"
+                :errorMess="errors.JobPositionName"
+                :tabIndex="5"
               />
             </div>
             <div class="form-content__right">
               <div class="d-flex row-8">
                 <MsInput
-                  :inputLabel="'Ngày sinh'"
+                  :inputLabel="FIELD_NAME.DateOfBirth"
                   :inputType="'date'"
                   :inputWidth="'width-40'"
                   v-model="employee.DateOfBirth"
                   :errorMess="errors.DateOfBirth"
-                  :tabIndex="4"
+                  :tabIndex="6"
                 />
 
                 <div class="flex-1 wrapper-input" style="padding-bottom: 16px">
                   <label class="label-input" style="padding-bottom: unset">
-                    Giới tính
+                    {{ FIELD_NAME.Gender }}
                   </label>
                   <div class="d-flex" style="margin: 8px 0">
                     <div class="input-radio-wrapper">
@@ -88,10 +89,11 @@
                           type="radio"
                           class="mr-8"
                           name="gender"
-                          value="0"
-                          v-model="employee.Gedner"
+                          :value="GENDER.MALE"
+                          v-model="employee.Gender"
+                          tabIndex="7"
                         />
-                        Nam
+                        {{ FIELD_NAME.GenderName.MALE }}
                       </label>
                     </div>
                     <div class="input-radio-wrapper">
@@ -100,10 +102,10 @@
                           type="radio"
                           class="mr-8"
                           name="gender"
-                          value="1"
-                          v-model="employee.Gedner"
+                          :value="GENDER.FEMALE"
+                          v-model="employee.Gender"
                         />
-                        Nữ
+                        {{ FIELD_NAME.GenderName.FEMALE }}
                       </label>
                     </div>
                     <div class="input-radio-wrapper">
@@ -112,10 +114,10 @@
                           type="radio"
                           class="mr-8"
                           name="gender"
-                          value="2"
-                          v-model="employee.Gedner"
+                          :value="GENDER.OTHER"
+                          v-model="employee.Gender"
                         />
-                        Khác
+                        {{ FIELD_NAME.GenderName.OTHER }}
                       </label>
                     </div>
                   </div>
@@ -123,23 +125,23 @@
               </div>
               <div class="d-flex row-8">
                 <MsInput
-                  :inputLabel="'Số CMND'"
+                  :inputLabel="FIELD_NAME.IdentityNumber"
                   :inputWidth="'width-60'"
                   v-model="employee.IdentityNumber"
                   :errorMess="errors.IdentityNumber"
-                  :tabIndex="7"
+                  :tabIndex="8"
                 />
                 <MsInput
-                  :inputLabel="'Ngày cấp'"
+                  :inputLabel="FIELD_NAME.IdentityDate"
                   :inputType="'date'"
                   :inputWidth="'flex-1'"
                   v-model="employee.IdentityDate"
                   :errorMess="errors.IdentityDate"
-                  :tabIndex="8"
+                  :tabIndex="9"
                 />
               </div>
               <MsInput
-                :inputLabel="'Nơi cấp'"
+                :inputLabel="FIELD_NAME.IdentityPlace"
                 v-model="employee.IdentityPlace"
                 :errorMess="errors.IdentityPlace"
                 :tabIndex="10"
@@ -148,28 +150,28 @@
           </div>
           <div class="form-content__bottom m-pb-12">
             <MsInput
-              :inputLabel="'Địa chỉ'"
+              :inputLabel="FIELD_NAME.Address"
               v-model="employee.Address"
               :errorMess="errors.Address"
               :tabIndex="11"
             />
             <div class="d-flex row-8">
               <MsInput
-                :inputLabel="'ĐT di động'"
+                :inputLabel="FIELD_NAME.PhoneNumber"
                 :inputWidth="'width-25'"
                 v-model="employee.TelephoneNumber"
                 :errorMess="errors.TelephoneNumber"
                 :tabIndex="12"
               />
               <MsInput
-                :inputLabel="'ĐT cố định'"
+                :inputLabel="FIELD_NAME.TelephoneNumber"
                 :inputWidth="'width-25'"
                 v-model="employee.PhoneNumber"
                 :errorMess="errors.PhoneNumber"
                 :tabIndex="13"
               />
               <MsInput
-                :inputLabel="'Email'"
+                :inputLabel="FIELD_NAME.Email"
                 :inputWidth="'width-25'"
                 v-model="employee.Email"
                 :errorMess="errors.Email"
@@ -179,21 +181,21 @@
             </div>
             <div class="d-flex row-8">
               <MsInput
-                :inputLabel="'Tài khoản ngân hàng'"
+                :inputLabel="FIELD_NAME.BankAccountNumber"
                 :inputWidth="'width-25'"
                 v-model="employee.BankAccountNumber"
                 :errorMess="errors.BankAccountNumber"
                 :tabIndex="15"
               />
               <MsInput
-                :inputLabel="'Tên ngân hàng'"
+                :inputLabel="FIELD_NAME.BankName"
                 :inputWidth="'width-25'"
                 v-model="employee.BankName"
                 :errorMess="errors.BankName"
                 :tabIndex="16"
               />
               <MsInput
-                :inputLabel="'Chi nhánh'"
+                :inputLabel="FIELD_NAME.BankBranchName"
                 :inputWidth="'width-25'"
                 v-model="employee.BankBranchName"
                 :errorMess="errors.BankBranchName"
@@ -206,11 +208,23 @@
       </form>
       <div class="dialog__footer d-flex">
         <div class="dialog-footer__left">
-          <MsButton :title="'Hủy'" :isSecondary="true" />
+          <MsButton
+            :title="'Hủy'"
+            :isSecondary="true"
+            :tabIndex="20"
+            @click="toggleEmployeeDetail"
+            @keydown="focusFirst"
+            ref="btnCancel"
+          />
         </div>
         <div class="dialog-footer__right d-flex">
-          <MsButton :title="'Cất'" :isSecondary="true" />
-          <MsButton :title="'Cất và thêm'" :isPrimary="true" />
+          <MsButton :title="'Cất'" :isSecondary="true" :tabIndex="18" />
+          <MsButton
+            :title="'Cất và thêm'"
+            :isPrimary="true"
+            :tabIndex="19"
+            ref="StoreAndAdd"
+          />
         </div>
       </div>
     </div>
@@ -228,16 +242,57 @@ export default {
     MsInput,
     MsComboBox,
   },
+  mounted() {
+    this.$refs.EmployeeCode.$el.querySelector("input").focus();
+  },
   computed: {
     ...mapGetters([
-      "isEmployeeDetails",
+      "isEmployeeDetail",
       "employeeDetailTitle",
       "employee",
       "FIELD_NAME",
+      "GENDER",
     ]),
   },
   methods: {
     ...mapActions(["toggleEmployeeDetail"]),
+
+    /**
+     * tab từ nút Hủy lên input employeeCode
+     * shift tab từ nút Hủy về nút Cất và thêm
+     *   @param {*} e
+     * Author: VDTIEN (14/11/2022)
+     */
+    focusFirst(e) {
+      e.preventDefault();
+      if (e.shiftKey && e.which == 9) {
+        this.$refs.StoreAndAdd.$el.focus();
+      }
+      if (!e.shiftKey && e.which == 9) {
+        this.$refs.EmployeeCode.$el.querySelector("input").focus();
+      }
+    },
+
+    /**
+     * tab từ input employeeCode sang input employeeNam
+     * shift tab từ input employeeCode về nút Hủy
+     *   @param {*} e
+     * Author: VDTIEN (14/11/2022)
+     */
+    focusLast(e) {
+      e.preventDefault();
+      if (e.shiftKey && e.which == 9) {
+        this.$refs.btnCancel.$el.focus();
+      }
+      if (!e.shiftKey && e.which == 9) {
+        this.$refs.EmployeeName.$el.querySelector("input").focus();
+      }
+    },
+
+    onClickBtnClose() {
+      const me = this;
+      me.toggleEmployeeDetail();
+    },
   },
   data() {
     return {

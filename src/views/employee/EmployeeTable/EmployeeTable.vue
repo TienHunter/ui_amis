@@ -27,7 +27,7 @@
             {{ FIELD_NAME.IdentityNumber }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.PositionName }}
+            {{ FIELD_NAME.JobPositionName }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
             {{ FIELD_NAME.DepartmentName }}
@@ -126,31 +126,6 @@ export default {
   methods: {
     ...mapActions(["toggleCheckedEmployeeIDs", "setEmptyCheckedEmployees"]),
 
-    convertNullString(str) {
-      return str ? str : "";
-    },
-
-    convertDateOfBirth(date) {
-      if (this.checkForamtDate(date)) {
-        if (date) {
-          date = new Date(date);
-          let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-          let month =
-            date.getMonth() < 9 ? "0" + date.getMonth() : date.getMonth() + 1;
-          let year = date.getFullYear();
-          return `${day}/${month}/${year}`;
-        }
-      }
-      return "";
-    },
-    /**
-     * @param {string} date
-     * @returns kiểm tra đầu vào đúng định dạng không
-     * author VDTien(23/10/2022)
-     */
-    checkForamtDate(date) {
-      return new Date(date) !== "Invalid Date" && !isNaN(new Date(date));
-    },
     handleToggleDropdownAction(index) {
       if (this.indexRe === index) {
         this.indexRe = -1;

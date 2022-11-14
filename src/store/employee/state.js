@@ -1,8 +1,8 @@
-import { ALERT_ACTION, FIELD_NAME } from "@/i18n";
+import { AlertAction, Alert, FIELD_NAME, GENDER } from "@/i18n";
 const state = {
    isLoading: false,
-   isEmployeeDetails: false,
-   employeeDetailTitle: "",
+   isEmployeeDetail: false,
+   employeeDetailTitle: "Thêm khách hàng",
    isAlert: false,
    formMode: 0,
    filter: {
@@ -11,16 +11,36 @@ const state = {
       employeeFilter: "",
    },
    employeeList: [],
-   employee: {},
+   employee: {
+      EmployeeID: "",
+      EmployeeCode: "",
+      EmployeeName: "",
+      DepartmentID: "",
+      DepartmentName: "",
+      JobPositionName: "",
+      DateOfBirth: "",
+      Gender: 0,
+      IdentityNumber: "",
+      IdentityDate: "",
+      IdentityPlace: "",
+      Address: "",
+      PhoneNumber: "",
+      TelephoneNumber: "",
+      Email: "",
+      BankAccountNumber: "",
+      BankName: "",
+      BankBranchName: "",
+   },
    totalRecords: 0,
    totalPages: 0,
    checkedEmployeeIDs: [],
    alert: {
-      type: "success",
+      type: Alert.SUCCESS,
       message: "",
-      action: ALERT_ACTION.DEFAULT,
+      action: AlertAction.DEFAULT,
    },
    FIELD_NAME,
+   GENDER,
 };
 
 export default state;

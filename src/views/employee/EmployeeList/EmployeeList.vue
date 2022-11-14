@@ -3,7 +3,11 @@
     <div class="main__header d-flex">
       <span class="main-header__title">Nhân viên</span>
       <div class="main-header__actions d-flex">
-        <MsButton :isPrimary="true" title="Thêm nhân viên mới" />
+        <MsButton
+          :isPrimary="true"
+          title="Thêm nhân viên mới"
+          @click="openForm"
+        />
       </div>
     </div>
     <div class="main__content">
@@ -42,11 +46,12 @@
       <EmployeePaging />
     </div>
   </div>
-  <EmployeeDetail />
+  <EmployeeDetail v-if="isEmployeeDetail" />
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { GENDER, FORM_MODE } from "../../../i18n";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import EmployeeTable from "@/views/employee/EmployeeTable/EmployeeTable.vue";
@@ -65,10 +70,31 @@ export default {
     this.getEmployees();
   },
   computed: {
-    ...mapGetters(["employeeList", "checkedEmployeeIDs"]),
+    ...mapGetters([
+      "employeeList",
+      "checkedEmployeeIDs",
+      "isEmployeeDetail",
+      "employee",
+    ]),
   },
   methods: {
-    ...mapActions(["getEmployees"]),
+    ...mapActions([
+      "getEmployees",
+      "setEmployeeDetailTitle",
+      "setFormMode",
+      "toggleEmployeeDetail",
+      "initEmployee",
+    ]),
+
+    openForm() {
+      const me = this;
+      me.setEmployeeDetailTitle = "Thêm khách hàng";
+      me.setFormMode(FORM_MODE.STORE);
+      me.toggleEmployeeDetail();
+      me.initEmployee({
+        Gender: GENDER.MALE,
+      });
+    },
   },
 };
 </script>

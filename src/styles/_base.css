@@ -3,6 +3,7 @@
 @import url(./_combobox.css);
 @import url(./_button.css);
 @import url(./_dialog.css);
+@import url(./_alert.css);
 :root {
    --height-header: 56px;
    --width-sidebar: 200px;

@@ -36,6 +36,7 @@ export default {
     icon: String,
     errorMess: String,
     tabIndex: Number,
+    inputType: String,
   },
   emits: ["update:modelValue", "keyup"],
   methods: {},
@@ -45,7 +46,7 @@ export default {
 <style>
 @import url(../../../styles/_input.css);
 @import url(../../../styles/_icon.css);
-.wrapper-input .icon {
+.wrapper-input label > .icon {
   position: absolute;
   right: 8px;
   top: 50%;
