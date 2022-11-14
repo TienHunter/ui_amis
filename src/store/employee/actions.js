@@ -112,10 +112,12 @@ const actions = {
       commit("TOGGLE_ALERT");
    },
 
-   async deleteEmployee({ dispatch, state }, employeeID) {
+   async deleteEmployee({ dispatch, state }) {
       try {
          dispatch("toggleLoading");
-         let res = await employeeRequest.deleteEmployee(employeeID);
+         let res = await employeeRequest.deleteEmployee(
+            state.employee.EmployeeID
+         );
          if (res) {
             // thông báo thành công
             dispatch("setAlert", {
@@ -141,6 +143,7 @@ const actions = {
          }
          dispatch("toggleLoading");
       } catch (error) {
+         console.log(error);
          dispatch("toggleLoading");
       }
    },
@@ -151,8 +154,75 @@ const actions = {
     * Author: VDTien (13/11/2022)
     */
    setAlert({ dispatch, commit }, alert) {
-      commit("SET_ALTER", alert);
+      commit("SET_ALERT", alert);
       dispatch("toggleAlert");
    },
+
+   /**
+    * Set các value cho employee state
+    * @param {*} param0
+    * @param {*} employee
+    * Author: VDTien (13/11/2022)
+    */
+   setEmployee({ commit }, employee) {
+      commit("SET_EMPLOYEE", employee);
+   },
+
+   /**
+    * Xóa hàng loạt employee
+    * @param {*} param0
+    * Author: VDTien (13/11/2022)
+    */
+   async deleteBatchEmployee({ dispatch, state }) {
+      try {
+         dispatch("toggleLoading");
+         let res = await employeeRequest.deleteBatchEmployee(
+            state.checkedEmployeeIDs
+         );
+         if (res) {
+            // thông báo thành công
+            dispatch("setAlert", {
+               type: Alert.SUCCESS,
+               message: "Xóa nhân viên thành công",
+               action: AlertAction.DEFAULT,
+            });
+            //load lại bộ lọc
+            dispatch("setFilter", {
+               pageSize: state.filter.pageSize,
+               pageNumber: 1,
+               employeeFilter: state.filter.employeeFilter,
+            });
+            // load lại dữ liệu
+            dispatch("getEmployees");
+         } else {
+            // thông báo lỗi
+            dispatch("setAlert", {
+               type: Alert.ERROR,
+               message: "Xóa nhân viên thất bại",
+               action: AlertAction.DEFAULT,
+            });
+         }
+         dispatch("toggleLoading");
+      } catch (error) {
+         console.log(error);
+         handleException(error, dispatch);
+         dispatch("toggleLoading");
+      }
+   },
+};
+/**
+ * Xử lí lỗi
+ * @param {*} error
+ * @param {*} context
+ */
+const handleException = (error, dispatch) => {
+   dispatch("toggleLoading");
+   console.log(error);
+   //thông báo có lỗi
+   dispatch("setAlert", {
+      type: Alert.DANGER,
+      message: error.response.data.UserMsg,
+      action: AlertAction.DEFAULT,
+   });
 };
 export default actions;

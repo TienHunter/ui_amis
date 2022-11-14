@@ -21,7 +21,7 @@
       <div class="alert-footer">
         <div
           v-if="alert.type == Alert.WARNING"
-          class="alert-warning-delete-footer"
+          class="alert-warning-delete-footer d-flex"
         >
           <MsButton
             :title="'Không'"
@@ -29,19 +29,27 @@
             @click="toggleAlert"
             tabindex="2"
           />
-          <MsButton :title="'Có'" @click="confirmClick" tabindex="1" />
+          <MsButton
+            :title="'Có'"
+            @click="confirmClick"
+            tabindex="1"
+            :isPrimary="true"
+          />
         </div>
 
         <div
           v-if="alert.type == Alert.DANGER || alert.type == Alert.SUCCESS"
-          class="alert-danger-footer"
+          class="alert-danger-footer d-flex"
         >
-          <button @click="toggleAlert" class="btn btn-close" tabindex="1">
-            Đóng
-          </button>
+          <MsButton
+            @click="toggleAlert"
+            :isPrimary="true"
+            :title="'Đóng'"
+            tabindex="1"
+          />
         </div>
 
-        <div v-if="alert.type == 'question'" class="alert-question-footer">
+        <div v-if="alert.type == Alert.INFO" class="alert-question-footer">
           <MsButton
             :title="'Hủy'"
             :isSecondary="true"
@@ -55,7 +63,12 @@
               @click="closeAll"
               tabindex="2"
             />
-            <MsButton :title="'Có'" @click="confirmClick" tabindex="1" />
+            <MsButton
+              :title="'Có'"
+              @click="confirmClick"
+              tabindex="1"
+              :isPrimary="true"
+            />
           </div>
         </div>
       </div>

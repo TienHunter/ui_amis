@@ -40,10 +40,13 @@ const mutations = {
    INIT_EMPLOYEE(state, payload) {
       state.employee.Gender = payload.Gender;
    },
-   SET_ALTER(state, payload) {
-      state.alter.type = payload.type;
-      state.alter.message = payload.message;
-      state.alter.action = payload.action;
+   SET_ALERT(state, payload) {
+      state.alert.type = payload.type;
+      state.alert.message = payload.message;
+      state.alert.action = payload.action;
+   },
+   SET_EMPLOYEE(state, payload) {
+      state.employee = { ...payload };
    },
    // formMode
    // filter

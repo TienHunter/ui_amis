@@ -18,10 +18,18 @@ const getEmployees = async (
 };
 const deleteEmployee = async (employeeID) => {
    try {
-      let res = await httpEmployee.delete(`/${employeeID}}`);
+      let res = await httpEmployee.delete(`${employeeID}`);
       return res.data;
    } catch (error) {
       console.log(error);
    }
 };
-export { getEmployees, deleteEmployee };
+const deleteBatchEmployee = async (listEmployeeID) => {
+   try {
+      let res = await httpEmployee.post("deleteBatch", listEmployeeID);
+      return res.data;
+   } catch (error) {
+      console.log(error);
+   }
+};
+export { getEmployees, deleteEmployee, deleteBatchEmployee };

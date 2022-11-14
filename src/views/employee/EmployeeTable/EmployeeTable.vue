@@ -91,10 +91,7 @@
             >
               <ul v-show="indexRe === index" class="dropdownlist">
                 <li class="dropdown__item">Nhân bản</li>
-                <li
-                  class="dropdown__item"
-                  @click="onClickDeleteRecord(item.EmployeeID)"
-                >
+                <li class="dropdown__item" @click="onClickDeleteRecord(item)">
                   Xóa
                 </li>
               </ul>
@@ -108,6 +105,8 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { convertDateOfBirth, convertNullString } from "@/utils/helper";
+import { Alert, AlertAction } from "@/i18n";
 export default {
   created() {
     const me = this;
@@ -124,8 +123,29 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(["toggleCheckedEmployeeIDs", "setEmptyCheckedEmployees"]),
+    ...mapActions([
+      "toggleCheckedEmployeeIDs",
+      "setEmptyCheckedEmployees",
+      "setAlert",
+      "setEmployee",
+    ]),
 
+    /**
+     * kiểm tra vâ chuyển đổi định dạng ngày tháng
+     * Author: VDTIEN (14/11/2022)
+     */
+    convertDateOfBirth: convertDateOfBirth,
+
+    /**
+     * chuyển đỏi hiển thị giá trị null
+     * Author: VDTIEN (14/11/2022)
+     */
+    convertNullString: convertNullString,
+    /**
+     * ản hiện dropdown xóa, nhân bản
+     * @param {int} index
+     * Author : VDTIEN (14/11/2022)
+     */
     handleToggleDropdownAction(index) {
       if (this.indexRe === index) {
         this.indexRe = -1;
@@ -165,6 +185,24 @@ export default {
       } else {
         me.setEmptyCheckedEmployees();
       }
+    },
+
+    /**
+     * xử lý sự kiên onclick xóa employee ( alert, confirm)
+     * @param {object} emp
+     * Author: VDTIEN (14/11/2022)
+     */
+    onClickDeleteRecord(emp) {
+      const me = this;
+      me.setEmployee(emp);
+      if (me.checkedEmployeeIDs.includes(emp.EmployeeID)) {
+        me.toggleCheckedEmployeeIDs(emp.EmployeeID);
+      }
+      me.setAlert({
+        type: Alert.WARNING,
+        message: `Bạn có chắc chắn muốn xóa Nhân viên <${emp.EmployeeCode}> không?`,
+        action: AlertAction.CONFIRM_DELETE,
+      });
     },
   },
   data() {
