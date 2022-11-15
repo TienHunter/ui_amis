@@ -17,7 +17,13 @@
           <button type="button" class="mr-8" title="Trợ giúp">
             <div class="icon icon--help"></div>
           </button>
-          <button type="button" title="Đóng (ESC)" @click="onClickBtnClose">
+          <button
+            type="button"
+            title="Đóng (ESC)"
+            @click="onClickBtnClose"
+            tabIndex="21"
+            ref="btnClose"
+          >
             <div class="icon icon--close"></div>
           </button>
         </div>
@@ -54,6 +60,7 @@
                   <MsComboBox
                     :errorMess="errors.DepartmentName"
                     :className="'department-list'"
+                    :dataList="departments.map((dp) => dp.DepartmentName)"
                     :selectedItem="employee.DepartmentName"
                     @selectAction="selectDepartment"
                     :tabIndex="4"
@@ -130,6 +137,7 @@
                   v-model="employee.IdentityNumber"
                   :errorMess="errors.IdentityNumber"
                   :tabIndex="8"
+                  :tooltip="'Số chứng minh nhân dân'"
                 />
                 <MsInput
                   :inputLabel="FIELD_NAME.IdentityDate"
@@ -218,12 +226,18 @@
           />
         </div>
         <div class="dialog-footer__right d-flex">
-          <MsButton :title="'Cất'" :isSecondary="true" :tabIndex="18" />
+          <MsButton
+            :title="'Cất'"
+            :isSecondary="true"
+            :tabIndex="18"
+            @click="saveData"
+          />
           <MsButton
             :title="'Cất và thêm'"
             :isPrimary="true"
             :tabIndex="19"
             ref="StoreAndAdd"
+            @click="saveAddData"
           />
         </div>
       </div>
@@ -233,6 +247,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { FORM_MODE } from "@/i18n";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import MsComboBox from "@/components/base/MSComboBox/MsComboBox.vue";
@@ -252,10 +267,18 @@ export default {
       "employee",
       "FIELD_NAME",
       "GENDER",
+      "formMode",
+      "alert",
+      "departments",
     ]),
   },
   methods: {
-    ...mapActions(["toggleEmployeeDetail"]),
+    ...mapActions([
+      "toggleEmployeeDetail",
+      "setFormMode",
+      "addEmployee",
+      "editEmployee",
+    ]),
 
     /**
      * tab từ nút Hủy lên input employeeCode
@@ -280,18 +303,153 @@ export default {
      * Author: VDTIEN (14/11/2022)
      */
     focusLast(e) {
-      e.preventDefault();
+      // e.preventDefault();
       if (e.shiftKey && e.which == 9) {
-        this.$refs.btnCancel.$el.focus();
+        this.$refs.btnClose.focus();
       }
-      if (!e.shiftKey && e.which == 9) {
-        this.$refs.EmployeeName.$el.querySelector("input").focus();
-      }
+      // if (!e.shiftKey && e.which == 9) {
+      //   this.$refs.EmployeeName.$el.querySelector("input").focus();
+      // }
     },
-
+    /**
+     * bắt sự kiện click vào btnClose
+     */
     onClickBtnClose() {
       const me = this;
       me.toggleEmployeeDetail();
+    },
+
+    /**
+     * bắt sự kiện onclick Cất button
+     * Author: VDTIEN (14/11/2022)
+     */
+    saveData() {
+      const me = this;
+      me.storeEmployee();
+    },
+
+    /**
+     * bắt sự kiện onclick Cất và thêm fbutton
+     * Author: VDTIEN (14/11/2022)
+     */
+    saveAddData() {
+      const me = this;
+      if (me.formMode == FORM_MODE.STORE) {
+        me.setFormMode(FORM_MODE.STORE_AND_ADD);
+      }
+      if (me.formMode == FORM_MODE.EDIT) {
+        me.setFormMode(FORM_MODE.EDIT_AND_ADD);
+      }
+      me.storeEmployee();
+    },
+
+    /**
+     * combobox chọn phòng ban
+     * @param {String} departmentName
+     * Author: VDTIEN (14/11/2022)
+     */
+    selectDepartment(departmentName) {
+      const me = this;
+      me.employee.DepartmentName = departmentName;
+      for (const dp of me.departments) {
+        if (dp.DepartmentName == departmentName) {
+          me.employee.DepartmentID = dp.DepartmentID;
+        }
+      }
+    },
+    /**
+     * Validator dữ liệu
+     * Author: VDTIEN (14/11/2022)
+     */
+    validateData() {
+      const me = this;
+      let isValid = false;
+      // Xóa mesage lỗi trước đó
+      me.errors = {};
+
+      // Mã không được để trống
+      if (!me.employee.EmployeeCode) {
+        me.errors.EmployeeCode = "Mã không được để trống";
+      } else {
+        if (!me.employee.EmployeeCode.match(/(NV)(\d+)/)) {
+          me.errors.EmployeeCode = "Mã không đúng định dạng";
+        }
+      }
+
+      // Tên không được để trống
+      if (!me.employee.EmployeeName) {
+        me.errors.EmployeeName = "Tên không được để trống";
+      }
+
+      // Đơn vị không được để trống
+      if (!me.employee.DepartmentName) {
+        me.errors.DepartmentName = "Đơn vị không được để trống";
+      }
+
+      // Ngày sinh không được lớn hơn hiện tại
+      if (me.employee.DateOfBirth) {
+        let currentDate = new Date().getTime();
+        let dof = Date.parse(me.employee.DateOfBirth);
+        if (dof > currentDate) {
+          me.errors.DateOfBirth = "Ngày sinh không được lớn hơn hiện tại";
+        }
+      }
+
+      // Ngày cấp không được lớn hơn hiện tại
+      if (me.employee.IdentityDate) {
+        let currentDate = new Date().getTime();
+        let identityDate = Date.parse(me.employee.DateOfBirth);
+        if (identityDate > currentDate) {
+          me.errors.IdentityDate = "Ngày cấp không được lớn hơn hiện tại";
+        }
+      }
+
+      // Email không được lớn hơn hiện tại
+      if (me.employee.Email) {
+        var mailFormat =
+          /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+)((\.[a-zA-Z0-9-]{2,3})+)$/;
+        if (!me.employee.Email.match(mailFormat)) {
+          me.errors.Email = "Email không đúng định dạng";
+        }
+      }
+
+      // Kiểm tra xem có lỗi nào không
+      if (Object.keys(me.errors).length == 0) {
+        isValid = true;
+      }
+      // else {
+      //   me.setAlert({
+      //     type: Alert.DANGER,
+      //     message: Object.values(me.errors)[0],
+      //   });
+      // }
+      return isValid;
+    },
+
+    /**
+     * cất dữ liệu nhân viên
+     * Author: VDTIEN (14/11/2022)
+     */
+    storeEmployee() {
+      const me = this;
+      //validate dữ liệu
+      let isValid = me.validateData();
+
+      if (isValid) {
+        if (
+          me.formMode == FORM_MODE.STORE ||
+          me.formMode == FORM_MODE.STORE_AND_ADD
+        ) {
+          //thêm nhân viên
+          me.addEmployee();
+        } else if (
+          me.formMode == FORM_MODE.EDIT ||
+          me.formMode == FORM_MODE.EDIt_AND_ADD
+        ) {
+          //sửa nhân viên
+          me.editEmployee();
+        }
+      }
     },
   },
   data() {

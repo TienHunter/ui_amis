@@ -32,9 +32,11 @@
           <MsInput
             :placeholder="'Tìm theo mã, tên nhân viên'"
             :icon="'icon--search'"
+            @keyup="searchEmployee"
+            v-model="filter.employeeFilter"
           />
           <div class="main-content-tools d-flex">
-            <div class="icon-wrapper">
+            <div class="icon-wrapper" title="Refresh" @click="getEmployees">
               <div class="icon icon--refresh"></div>
             </div>
             <div class="icon-wrapper">
@@ -70,7 +72,9 @@ export default {
     EmployeeAlert,
   },
   created() {
-    this.getEmployees();
+    const me = this;
+    me.getEmployees();
+    me.setDepartments();
   },
   computed: {
     ...mapGetters([
@@ -79,6 +83,7 @@ export default {
       "isEmployeeDetail",
       "employee",
       "isAlert",
+      "filter",
     ]),
   },
   methods: {
@@ -90,6 +95,9 @@ export default {
       "initEmployee",
       "setEmployee",
       "setAlert",
+      "setNewEmployeeCode",
+      "setDepartments",
+      "setFilter",
     ]),
 
     /**
@@ -101,9 +109,10 @@ export default {
       me.setEmployeeDetailTitle = "Thêm khách hàng";
       me.setFormMode(FORM_MODE.STORE);
       me.toggleEmployeeDetail();
-      me.initEmployee({
+      me.setEmployee({
         Gender: GENDER.MALE,
       });
+      me.setNewEmployeeCode();
     },
 
     deleteBatch() {
@@ -113,6 +122,20 @@ export default {
         message: "Bạn chắc chắn muốn xóa những nhân viên đã chọn !",
         action: AlertAction.CONFIRM_DELETE_BATCH,
       });
+    },
+
+    /**
+     * Tìm kiếm nhân viên
+     * Author: VDTIEN (14/11/2022)
+     */
+    searchEmployee() {
+      const me = this;
+      me.setFilter({
+        pageSize: me.filter.pageSize,
+        pageNumber: 1,
+        employeeFilter: me.filter.employeeFilter,
+      });
+      me.getEmployees();
     },
   },
 };

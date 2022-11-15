@@ -6,3 +6,9 @@ export const httpEmployee = axios.create({
       Authorization: "Bearer {token}",
    },
 });
+export const httpDepartment = axios.create({
+   baseURL: `http://localhost:5106/api/v1/Departments/`,
+   headers: {
+      Authorization: "Bearer {token}",
+   },
+});

@@ -21,9 +21,9 @@ const mutations = {
       }
    },
    SET_EMPLOYEES(state, payload) {
-      state.employeeList = payload.data;
-      state.totalRecords = payload.totalRecords;
-      state.totalPages = payload.totalPages;
+      state.employeeList = payload.Data;
+      state.totalRecords = payload.TotalRecords;
+      state.totalPages = payload.TotalPages;
       state.checkedEmployeeIDs = [];
    },
    SET_FILTER(state, payload) {
@@ -46,7 +46,10 @@ const mutations = {
       state.alert.action = payload.action;
    },
    SET_EMPLOYEE(state, payload) {
-      state.employee = { ...payload };
+      state.employee = payload;
+   },
+   SET_NEW_EMPLOYEE_CODE(state, payload) {
+      state.employee.EmployeeCode = payload;
    },
    // formMode
    // filter

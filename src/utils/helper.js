@@ -1,3 +1,4 @@
+import { GENDER } from "@/i18n";
 function convertNullString(str) {
    return str ? str : "";
 }
@@ -23,4 +24,27 @@ function convertDateOfBirth(date) {
 function checkForamtDate(date) {
    return new Date(date) !== "Invalid Date" && !isNaN(new Date(date));
 }
-export { convertNullString, convertDateOfBirth, checkForamtDate };
+function convertGenderName(Gender) {
+   let GenderName = "";
+   switch (Gender) {
+      case GENDER.MALE:
+         GenderName = "Nam";
+         break;
+      case GENDER.FEMALE:
+         GenderName = "Nữ";
+         break;
+      case GENDER.OTHER:
+         GenderName = "Khác";
+         break;
+      default:
+         GenderName = "";
+         break;
+   }
+   return GenderName;
+}
+export {
+   convertNullString,
+   convertDateOfBirth,
+   checkForamtDate,
+   convertGenderName,
+};

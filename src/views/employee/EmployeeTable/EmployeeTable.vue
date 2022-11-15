@@ -8,7 +8,10 @@
               type="checkbox"
               @change="checkAll"
               ref="checkedAllRecord"
-              :checked="employeeList.length == checkedEmployeeIDs.length"
+              :checked="
+                employeeList.length == checkedEmployeeIDs.length &&
+                employeeList.length > 0
+              "
             />
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
@@ -23,7 +26,11 @@
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
             {{ FIELD_NAME.DateOfBirth }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th
+            style="min-width: 160px; width: 160px"
+            class="hide-text-ellipsis"
+            title="Số chứng minh nhân dân"
+          >
             {{ FIELD_NAME.IdentityNumber }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
@@ -50,9 +57,9 @@
         <tr
           v-for="(item, index) in employeeList"
           :key="index"
-          @dbclick="onClickEditEmployee(item.EmployeeID)"
+          @dblclick="onClickEditEmployee(item)"
         >
-          <td class="td-anchor td-anchor--start">
+          <td class="td-anchor td-anchor--start" @dblclick.stop>
             <input
               type="checkbox"
               :value="item.EmployeeID"
@@ -64,7 +71,7 @@
             {{ convertNullString(item.EmployeeCode) }}
           </td>
           <td>{{ convertNullString(item.EmployeeName) }}</td>
-          <td>{{ convertNullString(item.GenderName) }}</td>
+          <td>{{ converGenderName(item.Gender) }}</td>
           <td class="text-center">
             {{ convertDateOfBirth(item.DateOfBirth) }}
           </td>
@@ -77,10 +84,9 @@
           <td
             class="td-anchor td-anchor--end d-flex-auto"
             :style="indexRe === index ? 'z-index:1' : ''"
+            @dblclick.stop
           >
-            <span class="" @click="onClickEditEmployee(item.EmployeeID)"
-              >Sửa</span
-            >
+            <span class="" @click="onClickEditEmployee(item)">Sửa</span>
 
             <button
               type="button"
@@ -105,8 +111,12 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { convertDateOfBirth, convertNullString } from "@/utils/helper";
-import { Alert, AlertAction } from "@/i18n";
+import {
+  convertDateOfBirth,
+  convertNullString,
+  convertGenderName,
+} from "@/utils/helper";
+import { Alert, AlertAction, FORM_MODE } from "@/i18n";
 export default {
   created() {
     const me = this;
@@ -128,6 +138,9 @@ export default {
       "setEmptyCheckedEmployees",
       "setAlert",
       "setEmployee",
+      "setEmployeeDetailTitle",
+      "setFormMode",
+      "toggleEmployeeDetail",
     ]),
 
     /**
@@ -141,6 +154,11 @@ export default {
      * Author: VDTIEN (14/11/2022)
      */
     convertNullString: convertNullString,
+
+    /**
+     * chuyển mã giới tính sang dạng string
+     */
+    converGenderName: convertGenderName,
     /**
      * ản hiện dropdown xóa, nhân bản
      * @param {int} index
@@ -203,6 +221,18 @@ export default {
         message: `Bạn có chắc chắn muốn xóa Nhân viên <${emp.EmployeeCode}> không?`,
         action: AlertAction.CONFIRM_DELETE,
       });
+    },
+
+    onClickEditEmployee(emp) {
+      const me = this;
+      me.setEmployeeDetailTitle("Sửa nhân viên");
+      me.setFormMode(FORM_MODE.EDIT);
+      me.setEmployee(emp);
+      me.toggleEmployeeDetail();
+    },
+
+    clicktd() {
+      console.log("clec");
     },
   },
   data() {

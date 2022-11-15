@@ -1,5 +1,5 @@
 import * as employeeRequest from "../../services/employeeService";
-import { AlertAction, Alert } from "@/i18n";
+import { AlertAction, Alert, FORM_MODE, GENDER } from "@/i18n";
 const actions = {
    /**
     * Lấy danh sách nhân viên theo bộ lọc và phân trang
@@ -149,8 +149,7 @@ const actions = {
    },
    /**
     * Xử lí nội dung của cảnh báo
-    * @param {*} context
-    * @param {*} alert
+    * @param {*}     * @param {*} alert
     * Author: VDTien (13/11/2022)
     */
    setAlert({ dispatch, commit }, alert) {
@@ -205,24 +204,104 @@ const actions = {
          dispatch("toggleLoading");
       } catch (error) {
          console.log(error);
-         handleException(error, dispatch);
+         dispatch("toggleLoading");
+      }
+   },
+
+   /**
+    * trả về employeeCode = "NV" + employeeCode max trong db
+    * @param {*} param0
+    * Author : VDTien (13/11/2022)
+    */
+   async setNewEmployeeCode({ commit }) {
+      try {
+         let newEmployeeCode = await employeeRequest.getEmployeeCodeMax();
+         newEmployeeCode = newEmployeeCode.match(/[0-9]+$/)[0] - -1;
+         newEmployeeCode = "NV" + newEmployeeCode;
+         commit("SET_NEW_EMPLOYEE_CODE", newEmployeeCode);
+      } catch (error) {
+         console.log(error);
+      }
+   },
+
+   async addEmployee({ dispatch, state }) {
+      try {
+         dispatch("toggleLoading");
+         let res = await employeeRequest.createEmployee(state.employee);
+         if (res) {
+            //thông báo thành công
+            dispatch("setAlert", {
+               type: Alert.SUCCESS,
+               message: "Thêm nhân viên thành công",
+               action: AlertAction.DEFAULT,
+            });
+            dispatch("setEmployee", {});
+            // Check mode
+            if (state.formMode == FORM_MODE.STORE) {
+               // Cất
+               dispatch("toggleEmployeeDetail");
+            } else {
+               // Cất và thêm
+               dispatch("setFormMode", FORM_MODE.STORE);
+               dispatch("setEmployee", { Gender: GENDER.MALE });
+               dispatch("setNewEmployeeCode");
+            }
+
+            //load lại dữ liệu
+            dispatch("getEmployees");
+         } else {
+            dispatch("setAlert", {
+               type: Alert.DANGER,
+               message: "Thêm nhân viên thất bại",
+               action: AlertAction.DEFAULT,
+            });
+         }
+      } catch (error) {
+         console.log(error);
+      } finally {
+         dispatch("toggleLoading");
+      }
+   },
+
+   async editEmployee({ dispatch, state }) {
+      try {
+         dispatch("toggleLoading");
+         let res = await employeeRequest.updateEmployee(state.employee);
+         if (res) {
+            //thông báo thành công
+            dispatch("setAlert", {
+               type: Alert.SUCCESS,
+               message: "Sửa nhân viên thành công",
+               action: AlertAction.DEFAULT,
+            });
+            dispatch("setEmployee", {});
+            // Check mode
+            if (state.formMode == FORM_MODE.EDIT) {
+               // Cất
+               dispatch("toggleEmployeeDetail");
+            } else {
+               // Cất và thêm
+               dispatch("setEmployeeDetailTitle", "Thêm khách hàng");
+               dispatch("setFormMode", FORM_MODE.STORE);
+               dispatch("setEmployee", { Gender: GENDER.MALE });
+               dispatch("setNewEmployeeCode");
+            }
+
+            //load lại dữ liệu
+            dispatch("getEmployees");
+         } else {
+            dispatch("setAlert", {
+               type: Alert.DANGER,
+               message: "Sửa nhân viên thất bại",
+               action: AlertAction.DEFAULT,
+            });
+         }
+      } catch (error) {
+         console.log(error);
+      } finally {
          dispatch("toggleLoading");
       }
    },
 };
-/**
- * Xử lí lỗi
- * @param {*} error
- * @param {*} context
- */
-const handleException = (error, dispatch) => {
-   dispatch("toggleLoading");
-   console.log(error);
-   //thông báo có lỗi
-   dispatch("setAlert", {
-      type: Alert.DANGER,
-      message: error.response.data.UserMsg,
-      action: AlertAction.DEFAULT,
-   });
-};
+
 export default actions;

@@ -7,9 +7,12 @@
       readonly
       :tabindex="tabIndex"
     />
-    <span v-if="errorMess" class="msg-input-error hide-text-ellipsis">{{
-      errorMess
-    }}</span>
+    <span
+      v-if="errorMess"
+      class="msg-input-error hide-text-ellipsis"
+      :title="errorMess"
+      >{{ errorMess }}</span
+    >
     <div class="combobox-button d-flex-auto" @click="toggleList">
       <div class="icon icon--chervon-down"></div>
     </div>
@@ -61,4 +64,7 @@ export default {
 </script>
 
 <style>
+.combobox .msg-input-error {
+  bottom: -16px !important;
+}
 </style>

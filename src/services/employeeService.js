@@ -32,4 +32,36 @@ const deleteBatchEmployee = async (listEmployeeID) => {
       console.log(error);
    }
 };
-export { getEmployees, deleteEmployee, deleteBatchEmployee };
+const getEmployeeCodeMax = async () => {
+   try {
+      let res = await httpEmployee.get("EmployeeCodeMax");
+      return res.data;
+   } catch (error) {
+      console.log(error);
+   }
+};
+const createEmployee = async (employee) => {
+   try {
+      let res = await httpEmployee.post("", employee);
+      return res.data;
+   } catch (error) {
+      console.log(error);
+   }
+};
+
+const updateEmployee = async (employee) => {
+   try {
+      let res = await httpEmployee.put(`${employee.EmployeeID}`, employee);
+      return res.data;
+   } catch (error) {
+      console.log(error);
+   }
+};
+export {
+   getEmployees,
+   deleteEmployee,
+   deleteBatchEmployee,
+   getEmployeeCodeMax,
+   createEmployee,
+   updateEmployee,
+};
