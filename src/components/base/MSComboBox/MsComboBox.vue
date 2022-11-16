@@ -13,7 +13,7 @@
       :title="errorMess"
       >{{ errorMess }}</span
     >
-    <div class="combobox-button d-flex-auto" @click="toggleList">
+    <div class="combobox-button d-flex-auto" @click.stop="toggleList">
       <div class="icon icon--chervon-down"></div>
     </div>
     <div class="combobox-data" :class="className" v-if="isShowList">
@@ -34,6 +34,12 @@
 export default {
   props: ["selectedItem", "className", "dataList", "errorMess", "tabIndex"],
   emits: ["selectAction"],
+  created() {
+    const me = this;
+    window.addEventListener("click", function () {
+      me.isShowList = false;
+    });
+  },
   methods: {
     /**
      * ẩn hiện combobox

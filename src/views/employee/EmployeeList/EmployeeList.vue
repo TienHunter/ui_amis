@@ -128,14 +128,16 @@ export default {
      * Tìm kiếm nhân viên
      * Author: VDTIEN (14/11/2022)
      */
-    searchEmployee() {
+    searchEmployee(e) {
+      console.log(e);
       const me = this;
       me.setFilter({
         pageSize: me.filter.pageSize,
         pageNumber: 1,
         employeeFilter: me.filter.employeeFilter,
       });
-      me.getEmployees();
+        me.getEmployees();
+
     },
   },
 };

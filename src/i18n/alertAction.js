@@ -11,4 +11,5 @@ const Alert = {
    DANGER: 4,
    ERROR: 5,
 };
-export { AlertAction, Alert };
+const AlertMessage = {};
+export { AlertAction, Alert, AlertMessage };

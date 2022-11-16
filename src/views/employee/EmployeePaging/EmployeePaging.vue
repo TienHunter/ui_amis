@@ -20,7 +20,10 @@
           @selectAction="selectPageSize"
         />
       </div>
-      <div class="pagination-right__action d-flex ml-12 mr-12">
+      <div
+        class="pagination-right__action d-flex ml-12 mr-12"
+        v-if="totalPages > 0"
+      >
         <span
           class="btn-pagination btn-pagination__prev"
           v-if="totalPages > 1"
@@ -29,7 +32,7 @@
         >
           Trước
         </span>
-        <ul class="page-list d-flex" v-if="totalPages > 0 && totalPages < 6">
+        <ul class="page-list d-flex" v-if="totalPages < 6">
           <li
             class="page-item"
             v-for="(page, index) in totalPages"
@@ -108,31 +111,28 @@
           </ul>
 
           <ul v-else class="d-flex page-list">
-            <li
-              class="page-item"
-              @click="onClickPage(filter.pageNumber - 1)"
-            >
+            <li class="page-item" @click="onClickPage(filter.pageNumber - 1)">
               {{ filter.pageNumber - 1 }}
             </li>
             <li class="page-item page-item--current">
               {{ filter.pageNumber }}
             </li>
-            <li
-              class="page-item"
-              @click="onClickPage(filter.pageNumber + 1)"
-            >
+            <li class="page-item" @click="onClickPage(filter.pageNumber + 1)">
               {{ filter.pageNumber + 1 }}
             </li>
           </ul>
+          <li v-if="filter.pageNumber < totalPages - 2" class="page-item">
+            ...
+          </li>
+          <li
+            class="page-item"
+            :class="{ 'page-item--current': filter.pageNumber == totalPages }"
+            @click="onClickPage(totalPages)"
+          >
+            {{ totalPages }}
+          </li>
         </ul>
-        <li v-if="filter.pageNumber < totalPages - 2" class="page-item">...</li>
-        <li
-          class="page-item"
-          :class="{ 'page-item--current': filter.pageNumber == totalPages }"
-          @click="onClickPage(totalPages)"
-        >
-          {{ totalPages }}
-        </li>
+
         <span
           class="btn-pagination btn-pagination__last"
           v-if="totalPages > 1"
@@ -176,7 +176,7 @@ export default {
       me.getEmployees();
     },
 
-       /**
+    /**
      * chọn trang bất kỳ
      * @param {int} pageSize
      * Author: VDTIEN (14/11/2022)
