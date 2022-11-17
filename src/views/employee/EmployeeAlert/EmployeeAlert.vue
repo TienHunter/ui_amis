@@ -49,26 +49,14 @@
           />
         </div>
 
-        <div v-if="alert.type == Alert.INFO" class="alert-question-footer">
-          <MsButton
-            :title="'Hủy'"
-            :isSecondary="true"
-            @click="toggleAlert"
-            tabindex="3"
-          />
+        <div
+          v-if="alert.type == Alert.INFO"
+          class="alert-question-footer d-flex"
+        >
+          <MsButton :title="'Hủy'" :isSecondary="true" @click="toggleAlert" />
           <div class="btn-action">
-            <MsButton
-              :title="'Không'"
-              :isSecondary="true"
-              @click="closeAll"
-              tabindex="2"
-            />
-            <MsButton
-              :title="'Có'"
-              @click="confirmClick"
-              tabindex="1"
-              :isPrimary="true"
-            />
+            <MsButton :title="'Không'" :isSecondary="true" @click="closeAll" />
+            <MsButton :title="'Có'" @click="confirmClick" :isPrimary="true" />
           </div>
         </div>
       </div>
@@ -82,7 +70,7 @@ import { AlertAction, Alert } from "@/i18n";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 export default {
   components: { MsButton },
-  emits: ["setIsStore"],
+  emits: ["confirmStore"],
   computed: { ...mapGetters(["alert"]) },
   methods: {
     ...mapActions([
@@ -91,6 +79,7 @@ export default {
       "deleteBatchEmployee",
       "getEmployees",
       "toggleEmployeeDetail",
+      "addEmployee",
     ]),
 
     /**
@@ -99,9 +88,9 @@ export default {
      */
     confirmClick() {
       const me = this;
-      me.toggleAlert();
+
       if (me.alert.action == AlertAction.CONFIRM_STORE) {
-        me.$emit("setIsStore");
+        me.$emit("confirmStore");
       }
       if (me.alert.action == AlertAction.CONFIRM_DELETE) {
         me.deleteEmployee();

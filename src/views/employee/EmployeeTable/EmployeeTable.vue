@@ -15,41 +15,41 @@
             />
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.EmployeeCode }}
+            {{ FIELD_NAME.EmployeeCode.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.EmployeeName }}
+            {{ FIELD_NAME.EmployeeName.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.Gender }}
+            {{ FIELD_NAME.Gender.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.DateOfBirth }}
+            {{ FIELD_NAME.DateOfBirth.toUpperCase() }}
           </th>
           <th
             style="min-width: 160px; width: 160px"
             class="hide-text-ellipsis"
             title="Số chứng minh nhân dân"
           >
-            {{ FIELD_NAME.IdentityNumber }}
+            {{ FIELD_NAME.IdentityNumber.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.JobPositionName }}
+            {{ FIELD_NAME.JobPositionName.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.DepartmentName }}
+            {{ FIELD_NAME.DepartmentName.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.BankAccountNumber }}
+            {{ FIELD_NAME.BankAccountNumber.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.BankName }}
+            {{ FIELD_NAME.BankName.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
-            {{ FIELD_NAME.BankBranchName }}
+            {{ FIELD_NAME.BankBranchName.toUpperCase() }}
           </th>
           <th style="min-width: 120px" class="th-anchor th-anchor--end">
-            {{ FIELD_NAME.Action }}
+            {{ FIELD_NAME.Action.toUpperCase() }}
           </th>
         </tr>
       </thead>
@@ -96,7 +96,7 @@
               @click.stop="handleToggleDropdownAction(index)"
             >
               <ul v-show="indexRe === index" class="dropdownlist">
-                <li class="dropdown__item">Nhân bản</li>
+                <li class="dropdown__item" @click="onClickDuplicateEmployee(item)">Nhân bản</li>
                 <li class="dropdown__item" @click="onClickDeleteRecord(item)">
                   Xóa
                 </li>
@@ -124,6 +124,7 @@ export default {
       me.indexRe = -1;
     });
   },
+
   computed: {
     ...mapGetters([
       "FIELD_NAME",
@@ -230,7 +231,13 @@ export default {
       me.setEmployee(emp);
       me.toggleEmployeeDetail();
     },
-
+    onClickDuplicateEmployee(emp) {
+      const me = this;
+      me.setEmployeeDetailTitle("Thêm nhân viên");
+      me.setFormMode(FORM_MODE.STORE);
+      me.setEmployee(emp);
+      me.toggleEmployeeDetail();
+    },
     clicktd() {
       console.log("clec");
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog-wrapper">
+  <div class="dialog-wrapper" ref="employeeDetail">
     <div class="dialog-container">
       <div class="dialog__header d-flex">
         <div class="dialog-header__title mr-12">{{ employeeDetailTitle }}</div>
@@ -57,15 +57,15 @@
                 <label class="label-input">
                   {{ FIELD_NAME.DepartmentName }}
                   <span style="color: red">(*)</span>
-                  <MsComboBox
-                    :errorMess="errors.DepartmentName"
-                    :className="'department-list'"
-                    :dataList="departments.map((dp) => dp.DepartmentName)"
-                    :selectedItem="employee.DepartmentName"
-                    @selectAction="selectDepartment"
-                    :tabIndex="4"
-                  />
                 </label>
+                <MsComboBox
+                  :errorMess="errors.DepartmentName"
+                  :className="'department-list'"
+                  :dataList="departments.map((dp) => dp.DepartmentName)"
+                  :selectedItem="employee.DepartmentName"
+                  @selectAction="selectDepartment"
+                  :tabIndex="4"
+                />
               </div>
               <MsInput
                 :inputLabel="FIELD_NAME.JobPositionName"
@@ -222,6 +222,7 @@
             :tabIndex="20"
             @click="toggleEmployeeDetail"
             @keydown="focusFirst"
+            @keyup.enter="toggleEmployeeDetail"
             ref="btnCancel"
           />
         </div>
@@ -230,6 +231,7 @@
             :title="'Cất'"
             :isSecondary="true"
             :tabIndex="18"
+            @keyup.enter="saveData"
             @click="saveData"
           />
           <MsButton
@@ -237,6 +239,7 @@
             :isPrimary="true"
             :tabIndex="19"
             ref="StoreAndAdd"
+            @keyup.enter="saveAddData"
             @click="saveAddData"
           />
         </div>
@@ -247,7 +250,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { FORM_MODE } from "@/i18n";
+import { FORM_MODE, Alert, AlertAction } from "@/i18n";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import MsComboBox from "@/components/base/MSComboBox/MsComboBox.vue";
@@ -257,8 +260,30 @@ export default {
     MsInput,
     MsComboBox,
   },
+  props: ["isStore"],
+  emits: ["confirmStoreDone"],
   mounted() {
-    this.$refs.EmployeeCode.$el.querySelector("input").focus();
+    const me = this;
+    me.$refs.EmployeeCode.$el.querySelector("input").focus();
+    me.$el.addEventListener("keydown", function (e) {
+      if (e.keyCode == 27 || e.which == 27) {
+        me.onClickBtnClose();
+      }
+    });
+  },
+  watch: {
+    /**
+     * lưu bản ghi khi bấm lưu thay đổi
+     * Author: VDTIEN (14/11/2022)
+     */
+    isStore() {
+      const me = this;
+      if (me.isStore == true) {
+        me.saveData();
+        me.toggleAlert();
+        me.$emit("confirmStoreDone");
+      }
+    },
   },
   computed: {
     ...mapGetters([
@@ -278,6 +303,8 @@ export default {
       "setFormMode",
       "addEmployee",
       "editEmployee",
+      "setAlert",
+      "toggleAlert",
     ]),
 
     /**
@@ -316,7 +343,11 @@ export default {
      */
     onClickBtnClose() {
       const me = this;
-      me.toggleEmployeeDetail();
+      me.setAlert({
+        type: Alert.INFO,
+        message: "Dữ liệu đã thay đổi bạn có muốn cất không ?",
+        action: AlertAction.CONFIRM_STORE,
+      });
     },
 
     /**
@@ -369,10 +400,11 @@ export default {
 
       // Mã không được để trống
       if (!me.employee.EmployeeCode) {
-        me.errors.EmployeeCode = "Mã không được để trống";
+        me.errors.EmployeeCode = "Mã nhân viên không được để trống";
       } else {
         if (!me.employee.EmployeeCode.match(/(NV)(\d+)/)) {
-          me.errors.EmployeeCode = "Mã không đúng định dạng";
+          me.errors.EmployeeCode =
+            "Mã nhân viên không đúng định dạng <NV><Mã số>";
         }
       }
 

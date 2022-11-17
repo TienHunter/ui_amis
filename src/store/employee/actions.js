@@ -196,7 +196,7 @@ const actions = {
          } else {
             // thông báo lỗi
             dispatch("setAlert", {
-               type: Alert.ERROR,
+               type: Alert.DANGER,
                message: "Xóa nhân viên thất bại",
                action: AlertAction.DEFAULT,
             });
@@ -216,7 +216,7 @@ const actions = {
    async setNewEmployeeCode({ commit }) {
       try {
          let newEmployeeCode = await employeeRequest.getEmployeeCodeMax();
-         newEmployeeCode = newEmployeeCode.match(/[0-9]+$/)[0] - -1;
+         newEmployeeCode++;
          newEmployeeCode = "NV" + newEmployeeCode;
          commit("SET_NEW_EMPLOYEE_CODE", newEmployeeCode);
       } catch (error) {
@@ -242,9 +242,7 @@ const actions = {
                dispatch("toggleEmployeeDetail");
             } else {
                // Cất và thêm
-               dispatch("setFormMode", FORM_MODE.STORE);
-               dispatch("setEmployee", { Gender: GENDER.MALE });
-               dispatch("setNewEmployeeCode");
+               dispatch("initValueForm");
             }
 
             //load lại dữ liệu
@@ -281,10 +279,7 @@ const actions = {
                dispatch("toggleEmployeeDetail");
             } else {
                // Cất và thêm
-               dispatch("setEmployeeDetailTitle", "Thêm khách hàng");
-               dispatch("setFormMode", FORM_MODE.STORE);
-               dispatch("setEmployee", { Gender: GENDER.MALE });
-               dispatch("setNewEmployeeCode");
+               dispatch("initValueForm");
             }
 
             //load lại dữ liệu
@@ -301,6 +296,16 @@ const actions = {
       } finally {
          dispatch("toggleLoading");
       }
+   },
+   /**
+    * Khởi tạo câc giá trị ban đầu cho employeeDetail componentes
+    * @param {*} param0
+    */
+   initValueForm({ dispatch }) {
+      dispatch("setEmployeeDetailTitle", "Thêm khách hàng");
+      dispatch("setFormMode", FORM_MODE.STORE);
+      dispatch("setEmployee", { Gender: GENDER.MALE });
+      dispatch("setNewEmployeeCode");
    },
 };
 

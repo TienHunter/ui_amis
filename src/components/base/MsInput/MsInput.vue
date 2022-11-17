@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper-input" :class="inputWidth">
-    <label :title="tooltip" :class="inputLabel ? 'label-input' : ''">
+  <div :class="[{ 'wrapper-input': inputLabel }, inputWidth]">
+    <label :title="tooltip" class="label-input" style="position: relative">
       {{ inputLabel }}
       <span v-show="inputRequired" style="color: red">(*)</span>
       <input
@@ -14,13 +14,13 @@
         v-on:keyup="$emit('keyup')"
       />
       <div v-if="icon" class="icon" :class="icon"></div>
-      <span
-        v-if="errorMess"
-        class="msg-input-error hide-text-ellipsis"
-        :title="errorMess"
-        >{{ errorMess }}</span
-      >
     </label>
+    <span
+      v-if="errorMess"
+      class="msg-input-error hide-text-ellipsis"
+      :title="errorMess"
+      >{{ errorMess }}</span
+    >
   </div>
 </template>
 

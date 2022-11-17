@@ -15,7 +15,6 @@
         <div class="main-content-tools__left">
           <div class="batch-excecution d-flex" style="flex-direction: column">
             <div class="d-flex">
-              <div class="batch-excecution-title">Thực hiện hàng loạt:</div>
               <MsButton
                 title="Xóa"
                 :isDanger="true"
@@ -49,13 +48,17 @@
       <EmployeePaging />
     </div>
   </div>
-  <EmployeeDetail v-if="isEmployeeDetail" />
-  <EmployeeAlert v-if="isAlert" />
+  <EmployeeDetail
+    v-if="isEmployeeDetail"
+    :isStore="isStore"
+    @confirmStoreDone="() => (this.isStore = false)"
+  />
+  <EmployeeAlert v-if="isAlert" @confirmStore="() => (this.isStore = true)" />
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { GENDER, FORM_MODE, Alert, AlertAction } from "../../../i18n";
+import { Alert, AlertAction } from "../../../i18n";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import EmployeeTable from "@/views/employee/EmployeeTable/EmployeeTable.vue";
@@ -98,6 +101,7 @@ export default {
       "setNewEmployeeCode",
       "setDepartments",
       "setFilter",
+      "initValueForm",
     ]),
 
     /**
@@ -106,13 +110,8 @@ export default {
      */
     openForm() {
       const me = this;
-      me.setEmployeeDetailTitle = "Thêm khách hàng";
-      me.setFormMode(FORM_MODE.STORE);
       me.toggleEmployeeDetail();
-      me.setEmployee({
-        Gender: GENDER.MALE,
-      });
-      me.setNewEmployeeCode();
+      me.initValueForm();
     },
 
     deleteBatch() {
@@ -128,17 +127,26 @@ export default {
      * Tìm kiếm nhân viên
      * Author: VDTIEN (14/11/2022)
      */
-    searchEmployee(e) {
-      console.log(e);
+    searchEmployee() {
       const me = this;
-      me.setFilter({
-        pageSize: me.filter.pageSize,
-        pageNumber: 1,
-        employeeFilter: me.filter.employeeFilter,
-      });
+      if (me.timer) {
+        clearTimeout(me.timer);
+        me.timer = null;
+      }
+      me.timer = setTimeout(() => {
+        me.setFilter({
+          pageSize: me.filter.pageSize,
+          pageNumber: 1,
+          employeeFilter: me.filter.employeeFilter,
+        });
         me.getEmployees();
-
+      }, 1000);
     },
+  },
+  data() {
+    return {
+      isStore: false,
+    };
   },
 };
 </script>

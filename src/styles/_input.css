@@ -1,5 +1,6 @@
 .wrapper-input {
    position: relative;
+   padding-bottom: 16px;
 }
 .label-input {
    position: relative;
@@ -9,7 +10,6 @@
    font-weight: 600;
    color: #1f1f1f;
    text-align: left;
-   padding-bottom: 16px;
 }
 .wrapper-input .input {
    margin: 8px 0;
@@ -27,6 +27,12 @@
 }
 .input.input-icon {
    padding-right: 40px;
+}
+.input.input-icon ~ .icon {
+   position: absolute;
+   top: 50%;
+   right: 8px;
+   transform: translateY(-50%);
 }
 .input::placeholder {
    color: #9e9e9e;

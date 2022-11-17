@@ -6,6 +6,7 @@
       :value="selectedItem"
       readonly
       :tabindex="tabIndex"
+      :class="{ 'input-error': errorMess }"
     />
     <span
       v-if="errorMess"
