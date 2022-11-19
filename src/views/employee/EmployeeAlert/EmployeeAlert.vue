@@ -80,6 +80,7 @@ export default {
       "getEmployees",
       "toggleEmployeeDetail",
       "addEmployee",
+      "setEmployee"
     ]),
 
     /**
@@ -108,6 +109,7 @@ export default {
     closeAll() {
       const me = this;
       me.toggleAlert();
+      me.setEmployee({});
       me.toggleEmployeeDetail();
     },
   },

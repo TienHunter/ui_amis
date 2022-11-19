@@ -130,7 +130,6 @@ const actions = {
                (state.totalRecords % state.filter.pageSize
                   ? state.totalRecords % state.filter.pageSize
                   : state.filter.pageSize) - 1;
-            console.log(hasRecordsInPageEnd);
             dispatch("setFilter", {
                pageSize: state.filter.pageSize,
                pageNumber: hasRecordsInPageEnd ? state.filter.pageNumber : 1,
@@ -245,6 +244,10 @@ const actions = {
                message: "Thêm nhân viên thành công",
                action: AlertAction.DEFAULT,
             });
+            //load lại dữ liệu
+            state.employee.EmployeeID = res;
+            state.employeeList.unshift({ ...state.employee });
+            state.totalRecords++;
             dispatch("setEmployee", {});
             // Check mode
             if (state.formMode == FORM_MODE.STORE) {
@@ -255,8 +258,7 @@ const actions = {
                dispatch("initValueForm");
             }
 
-            //load lại dữ liệu
-            dispatch("getEmployees");
+            // dispatch("getEmployees");
          } else {
             dispatch("setAlert", {
                type: Alert.DANGER,

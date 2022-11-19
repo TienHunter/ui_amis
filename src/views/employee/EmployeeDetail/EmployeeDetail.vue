@@ -400,7 +400,10 @@ export default {
       me.errors = {};
 
       // Mã không được để trống
-      if (!me.employee.EmployeeCode) {
+      if (
+        !me.employee.EmployeeCode ||
+        (me.employee.EmployeeCode && !me.employee.EmployeeCode.trim())
+      ) {
         me.errors.EmployeeCode = "Mã nhân viên không được để trống";
       } else {
         if (!me.employee.EmployeeCode.match(/(NV)(\d+)/)) {
@@ -410,7 +413,10 @@ export default {
       }
 
       // Tên không được để trống
-      if (!me.employee.EmployeeName) {
+      if (
+        !me.employee.EmployeeName ||
+        (me.employee.EmployeeName && !me.employee.EmployeeName.trim())
+      ) {
         me.errors.EmployeeName = "Tên không được để trống";
       }
 
@@ -438,7 +444,7 @@ export default {
       }
 
       // Email không được lớn hơn hiện tại
-      if (me.employee.Email) {
+      if (me.employee.Email && me.employee.Email.trim()) {
         var mailFormat =
           /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+)((\.[a-zA-Z0-9-]{2,3})+)$/;
         if (!me.employee.Email.match(mailFormat)) {
