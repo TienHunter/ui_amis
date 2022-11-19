@@ -5,57 +5,33 @@ const getEmployees = async (
    keyWord = "",
    sort = ""
 ) => {
-   try {
-      let limit = pageeSize,
-         offset = (pageNumber - 1) * pageeSize;
-      let res = await httpEmployee.get(
-         `filter?limit=${limit}&offset=${offset}&keyWord=${keyWord}&sort=${sort}`
-      );
-      return res.data;
-   } catch (error) {
-      console.error(error);
-   }
+   let limit = pageeSize,
+      offset = (pageNumber - 1) * pageeSize;
+   let res = await httpEmployee.get(
+      `filter?limit=${limit}&offset=${offset}&keyWord=${keyWord}&sort=${sort}`
+   );
+   return res.data;
 };
 const deleteEmployee = async (employeeID) => {
-   try {
-      let res = await httpEmployee.delete(`${employeeID}`);
-      return res.data;
-   } catch (error) {
-      console.log(error);
-   }
+   let res = await httpEmployee.delete(`${employeeID}`);
+   return res.data;
 };
 const deleteBatchEmployee = async (listEmployeeID) => {
-   try {
-      let res = await httpEmployee.post("deleteBatch", listEmployeeID);
-      return res.data;
-   } catch (error) {
-      console.log(error);
-   }
+   let res = await httpEmployee.post("deleteBatch", listEmployeeID);
+   return res.data;
 };
 const getEmployeeCodeMax = async () => {
-   try {
-      let res = await httpEmployee.get("EmployeeCodeMax");
-      return res.data;
-   } catch (error) {
-      console.log(error);
-   }
+   let res = await httpEmployee.get("EmployeeCodeMax");
+   return res.data;
 };
 const createEmployee = async (employee) => {
-   try {
-      let res = await httpEmployee.post("", employee);
-      return res.data;
-   } catch (error) {
-      console.log(error);
-   }
+   let res = await httpEmployee.post("", employee);
+   return res.data;
 };
 
 const updateEmployee = async (employee) => {
-   try {
-      let res = await httpEmployee.put(`${employee.EmployeeID}`, employee);
-      return res.data;
-   } catch (error) {
-      console.log(error);
-   }
+   let res = await httpEmployee.put(`${employee.EmployeeID}`, employee);
+   return res.data;
 };
 export {
    getEmployees,

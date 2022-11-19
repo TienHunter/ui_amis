@@ -126,9 +126,14 @@ const actions = {
                action: AlertAction.DEFAULT,
             });
             //load lại bộ lọc
+            let hasRecordsInPageEnd =
+               (state.totalRecords % state.filter.pageSize
+                  ? state.totalRecords % state.filter.pageSize
+                  : state.filter.pageSize) - 1;
+            console.log(hasRecordsInPageEnd);
             dispatch("setFilter", {
                pageSize: state.filter.pageSize,
-               pageNumber: 1,
+               pageNumber: hasRecordsInPageEnd ? state.filter.pageNumber : 1,
                employeeFilter: state.filter.employeeFilter,
             });
             // load lại dữ liệu
@@ -185,10 +190,15 @@ const actions = {
                message: "Xóa nhân viên thành công",
                action: AlertAction.DEFAULT,
             });
+            // kiểm tra xem con bản ghi ở trang cuối không
+            let hasRecordsInPageEnd =
+               (state.totalRecords % state.filter.pageSize
+                  ? state.totalRecords % state.filter.pageSize
+                  : state.filter.pageSize) - state.checkedEmployeeIDs.length;
             //load lại bộ lọc
             dispatch("setFilter", {
                pageSize: state.filter.pageSize,
-               pageNumber: 1,
+               pageNumber: hasRecordsInPageEnd ? state.filter.pageNumber : 1,
                employeeFilter: state.filter.employeeFilter,
             });
             // load lại dữ liệu
@@ -256,6 +266,13 @@ const actions = {
          }
       } catch (error) {
          console.log(error);
+         let message =
+            error?.response?.data?.MoreInfo ??
+            "Đã xảy ra lỗi, xin liên hệ với nhân viên";
+         if (typeof message == "object") {
+            message = Object.values(message)[0];
+         }
+         hanldeException(dispatch, message);
       } finally {
          dispatch("toggleLoading");
       }
@@ -293,6 +310,13 @@ const actions = {
          }
       } catch (error) {
          console.log(error);
+         let message =
+            error?.response?.data?.MoreInfo ??
+            "Đã xảy ra lỗi, xin liên hệ với nhân viên";
+         if (typeof message == "object") {
+            message = Object.values(message)[0];
+         }
+         hanldeException(dispatch, message);
       } finally {
          dispatch("toggleLoading");
       }
@@ -308,5 +332,11 @@ const actions = {
       dispatch("setNewEmployeeCode");
    },
 };
-
+function hanldeException(dispatch, payload) {
+   dispatch("setAlert", {
+      type: Alert.DANGER,
+      message: payload,
+      action: AlertAction.DEFAULT,
+   });
+}
 export default actions;

@@ -96,7 +96,12 @@
               @click.stop="handleToggleDropdownAction(index)"
             >
               <ul v-show="indexRe === index" class="dropdownlist">
-                <li class="dropdown__item" @click="onClickDuplicateEmployee(item)">Nhân bản</li>
+                <li
+                  class="dropdown__item"
+                  @click="onClickDuplicateEmployee(item)"
+                >
+                  Nhân bản
+                </li>
                 <li class="dropdown__item" @click="onClickDeleteRecord(item)">
                   Xóa
                 </li>
@@ -142,6 +147,7 @@ export default {
       "setEmployeeDetailTitle",
       "setFormMode",
       "toggleEmployeeDetail",
+      "setNewEmployeeCode",
     ]),
 
     /**
@@ -224,6 +230,11 @@ export default {
       });
     },
 
+    /**
+     * xử lý sự kiên onclick button thêm employee
+     * @param {object} emp
+     * Author: VDTIEN (14/11/2022)
+     */
     onClickEditEmployee(emp) {
       const me = this;
       me.setEmployeeDetailTitle("Sửa nhân viên");
@@ -231,15 +242,19 @@ export default {
       me.setEmployee(emp);
       me.toggleEmployeeDetail();
     },
+
+    /**
+     * xử lý sự kiên onclick button nhân bản employee
+     * @param {object} emp
+     * Author: VDTIEN (14/11/2022)
+     */
     onClickDuplicateEmployee(emp) {
       const me = this;
       me.setEmployeeDetailTitle("Thêm nhân viên");
       me.setFormMode(FORM_MODE.STORE);
       me.setEmployee(emp);
+      me.setNewEmployeeCode();
       me.toggleEmployeeDetail();
-    },
-    clicktd() {
-      console.log("clec");
     },
   },
   data() {

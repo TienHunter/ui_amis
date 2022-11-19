@@ -21,7 +21,7 @@ const mutations = {
       }
    },
    SET_EMPLOYEES(state, payload) {
-      state.employeeList = payload.Data;
+      state.employeeList = [...payload.Data];
       state.totalRecords = payload.TotalRecords;
       state.totalPages = payload.TotalPages;
       state.checkedEmployeeIDs = [];
@@ -46,7 +46,7 @@ const mutations = {
       state.alert.action = payload.action;
    },
    SET_EMPLOYEE(state, payload) {
-      state.employee = payload;
+      state.employee = { ...payload };
    },
    SET_NEW_EMPLOYEE_CODE(state, payload) {
       state.employee.EmployeeCode = payload;

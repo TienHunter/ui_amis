@@ -262,14 +262,15 @@ export default {
   },
   props: ["isStore"],
   emits: ["confirmStoreDone"],
+
   mounted() {
     const me = this;
     me.$refs.EmployeeCode.$el.querySelector("input").focus();
-    me.$el.addEventListener("keydown", function (e) {
-      if (e.keyCode == 27 || e.which == 27) {
-        me.onClickBtnClose();
-      }
-    });
+    document.addEventListener("keydown", me.escKeydown);
+  },
+  unmounted() {
+    const me = this;
+    document.removeEventListener("keydown", me.escKeydown);
   },
   watch: {
     /**
@@ -481,6 +482,17 @@ export default {
           //sửa nhân viên
           me.editEmployee();
         }
+      }
+    },
+
+    /**
+     * bắt sự kiện bấm phím esc
+     * Author: VDTIEN (14/11/2022)
+     */
+    escKeydown(e) {
+      const me = this;
+      if (e.keyCode == 27 || e.which == 27) {
+        me.onClickBtnClose();
       }
     },
   },

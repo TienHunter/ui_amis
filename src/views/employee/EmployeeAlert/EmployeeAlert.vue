@@ -93,9 +93,11 @@ export default {
         me.$emit("confirmStore");
       }
       if (me.alert.action == AlertAction.CONFIRM_DELETE) {
+        me.toggleAlert();
         me.deleteEmployee();
       }
       if (me.alert.action == AlertAction.CONFIRM_DELETE_BATCH) {
+        me.toggleAlert();
         me.deleteBatchEmployee();
       }
     },
