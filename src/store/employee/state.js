@@ -1,4 +1,5 @@
-import { AlertAction, Alert, FIELD_NAME, GENDER } from "@/i18n";
+import { AlertAction, Alert, GENDER } from "@/enums";
+import { FIELD_NAME } from "@/i18n";
 const state = {
    isLoading: false,
    isEmployeeDetail: false,

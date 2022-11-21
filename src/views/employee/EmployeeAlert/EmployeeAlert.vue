@@ -66,7 +66,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { AlertAction, Alert } from "@/i18n";
+import { AlertAction, Alert } from "@/enums";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 export default {
   components: { MsButton },

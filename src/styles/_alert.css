@@ -11,27 +11,41 @@
    background: rgba(0, 0, 0, 0.4);
 }
 .alert-container {
-   width: 400px;
+   width: 444px;
+   min-width: 444px;
    background-color: #fff;
    border-radius: 4px;
-   padding: 24px;
-   padding-bottom: unset;
+   padding: 32px;
 }
 .alert-body {
    display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 12px;
-   margin-bottom: 24px;
+   align-items: flex-start;
+   /* align-items: center; */
+   /* jus   tify-content: center; */
+   /* gap: 20px; */
+   /* padding-bottom: 20px; */
 }
 .alert-body__left {
+   width: 48px;
+   height: 48px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 .alert-body__right {
    flex: 1;
+   font-size: 13px;
+   line-height: 18px;
+   color: #111;
+   /* overflow: auto; */
+   max-height: 400px;
+   margin-bottom: 32px;
+   padding-left: 16px;
+   padding-top: 12px;
 }
 .alert-footer {
    border-top: 1px solid #ccc;
-   padding: 12px 0;
+   padding-top: 20px;
 }
 .alert-warning-delete-footer,
 .alert-question-footer {

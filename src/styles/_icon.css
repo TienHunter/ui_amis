@@ -143,3 +143,10 @@
    width: 36px;
    height: 36px;
 }
+.icon--arrow-up-black {
+   background-position: -560px -359px;
+   width: 16px;
+   height: 16px;
+   min-width: 16px;
+   min-height: 16px;
+}

@@ -1,5 +1,5 @@
 import * as employeeRequest from "../../services/employeeService";
-import { AlertAction, Alert, FORM_MODE, GENDER } from "@/i18n";
+import { AlertAction, Alert, FORM_MODE, GENDER } from "@/enums";
 const actions = {
    /**
     * Lấy danh sách nhân viên theo bộ lọc và phân trang
@@ -94,15 +94,7 @@ const actions = {
    setFormMode({ commit }, mode) {
       commit("SET_FORM_MODE", mode);
    },
-   /**
-    * Khỏi tạo giá trị ban đầu cho employee
-    * @param {*} param0
-    * @param {*} input
-    * Author: VDTien (13/11/2022)
-    */
-   initEmployee({ commit }, input) {
-      commit("INIT_EMPLOYEE", input);
-   },
+
    /**
     * Ẩn / hiện alert
     * @param {*} param0

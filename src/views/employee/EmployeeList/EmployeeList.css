@@ -30,12 +30,47 @@
    flex: 1;
    height: calc(100% - 76px);
 }
-/* .batch-excecution {
-   display: none;
-} */
-.batch-excecution-title {
-   font-size: 16px;
+.batch-action {
+   position: relative;
+}
+.btn-batch:hover {
+   background-color: #d2d3d6;
+}
+.btn-batch .batch-action-title {
    font-weight: 600;
-   padding-right: 12px;
-   line-height: 36px;
+   position: relative;
+   /* color: inherit; */
+   display: inline-block;
+   /* transition: all .25s ease; */
+   white-space: nowrap;
+   font-size: 13px;
+   line-height: 13px;
+   padding-right: 4px;
+   color: #111;
+}
+.list-batch-action {
+   position: absolute;
+   z-index: 9990;
+   top: calc(100% + 4px);
+   right: 0;
+   background: #fff;
+   padding: 2px 1px;
+   border-radius: 2px;
+   border: 1px solid #babec5;
+}
+.batch-action-item {
+   white-space: nowrap;
+   text-align: left;
+   width: 100%;
+   list-style: none;
+   min-width: 100px;
+   font-weight: 400 !important;
+   font-size: 13px;
+   padding: 5px;
+   padding-left: 10px;
+   padding-right: 10px;
+   cursor: pointer;
+}
+.batch-action-item:hover {
+   background-color: #eee;
 }

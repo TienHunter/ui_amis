@@ -23,7 +23,10 @@
           <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
             {{ FIELD_NAME.Gender.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th
+            style="min-width: 160px; width: 160px"
+            class="hide-text-ellipsis text-center"
+          >
             {{ FIELD_NAME.DateOfBirth.toUpperCase() }}
           </th>
           <th
@@ -121,7 +124,7 @@ import {
   convertNullString,
   convertGenderName,
 } from "@/utils/helper";
-import { Alert, AlertAction, FORM_MODE } from "@/i18n";
+import { Alert, AlertAction, FORM_MODE } from "@/enums";
 export default {
   created() {
     const me = this;
@@ -225,7 +228,7 @@ export default {
       }
       me.setAlert({
         type: Alert.WARNING,
-        message: `Bạn có chắc chắn muốn xóa Nhân viên <${emp.EmployeeCode}> không?`,
+        message: `Bạn có thực sự muốn xóa Nhân viên <${emp.EmployeeCode}> không?`,
         action: AlertAction.CONFIRM_DELETE,
       });
     },

@@ -1,4 +1,4 @@
-import { GENDER } from "@/i18n";
+import { GENDER } from "@/enums";
 function convertNullString(str) {
    return str ? str : "";
 }

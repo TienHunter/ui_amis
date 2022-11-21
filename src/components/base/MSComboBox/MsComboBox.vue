@@ -1,22 +1,26 @@
 <template>
   <div class="combobox">
-    <input
-      class="input"
-      type="text"
-      :value="selectedItem"
-      readonly
-      :tabindex="tabIndex"
-      :class="{ 'input-error': errorMess }"
-    />
-    <span
-      v-if="errorMess"
-      class="msg-input-error hide-text-ellipsis"
-      :title="errorMess"
-      >{{ errorMess }}</span
-    >
-    <div class="combobox-button d-flex-auto" @click.stop="toggleList">
-      <div class="icon icon--chervon-down"></div>
+    <div class="input-container">
+      <input
+        class="input"
+        type="text"
+        :value="selectedItem"
+        readonly
+        :tabindex="tabIndex"
+        :class="{ 'input-error': errorMess }"
+      />
+      <div class="combobox-button d-flex-auto" @click.stop="toggleList">
+        <div class="icon icon--chervon-down"></div>
+      </div>
+      <span
+        v-if="errorMess"
+        class="msg-input-error"
+        :title="errorMess"
+      >
+        {{ errorMess }}
+      </span>
     </div>
+
     <div class="combobox-data" :class="className" v-if="isShowList">
       <div
         v-for="(item, index) in dataList"
@@ -71,7 +75,4 @@ export default {
 </script>
 
 <style>
-.combobox .msg-input-error {
-  bottom: -16px !important;
-}
 </style>

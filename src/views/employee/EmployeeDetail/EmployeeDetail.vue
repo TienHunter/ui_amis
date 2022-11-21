@@ -53,7 +53,7 @@
                   ref="EmployeeName"
                 />
               </div>
-              <div class="wrapper-input">
+              <div class="input-wrapper">
                 <label class="label-input">
                   {{ FIELD_NAME.DepartmentName }}
                   <span style="color: red">(*)</span>
@@ -85,7 +85,7 @@
                   :tabIndex="6"
                 />
 
-                <div class="flex-1 wrapper-input" style="padding-bottom: 16px">
+                <div class="flex-1 input-wrapper" style="padding-bottom: 16px">
                   <label class="label-input" style="padding-bottom: unset">
                     {{ FIELD_NAME.Gender }}
                   </label>
@@ -250,7 +250,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { FORM_MODE, Alert, AlertAction } from "@/i18n";
+import { FORM_MODE, Alert, AlertAction } from "@/enums";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import MsComboBox from "@/components/base/MSComboBox/MsComboBox.vue";

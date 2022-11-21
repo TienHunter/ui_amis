@@ -13,18 +13,19 @@
     <div class="main__content">
       <div class="main-content__tools d-flex">
         <div class="main-content-tools__left">
-          <div class="batch-excecution d-flex" style="flex-direction: column">
-            <div class="d-flex">
-              <MsButton
-                title="Xóa"
-                :isDanger="true"
-                :isDisable="!checkedEmployeeIDs.length"
-                @click="deleteBatch"
-              />
-            </div>
-            <div style="align-self: flex-start; padding-left: 12px">
-              Đã chọn : {{ checkedEmployeeIDs.length }}
-            </div>
+          <div class="batch-action d-flex" style="flex-direction: column">
+            <button class="btn-batch" @click.stop="toggleBatchAction">
+              <span class="batch-action-title">Thực hiện hàng loạt</span>
+              <div class="icon icon--arrow-up-black"></div>
+            </button>
+            <ul
+              class="list-batch-action"
+              v-show="checkedEmployeeIDs.length > 0 && isShowBatchAction"
+            >
+              <li class="batch-delete batch-action-item" @click="deleteBatch">
+                Xóa
+              </li>
+            </ul>
           </div>
         </div>
         <div class="d-flex">
@@ -58,7 +59,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { Alert, AlertAction } from "../../../i18n";
+import { Alert, AlertAction } from "@/enums";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import EmployeeTable from "@/views/employee/EmployeeTable/EmployeeTable.vue";
@@ -78,6 +79,9 @@ export default {
     const me = this;
     me.getEmployees();
     me.setDepartments();
+    document.addEventListener("click", function () {
+      me.isShowBatchAction = false;
+    });
   },
   computed: {
     ...mapGetters([
@@ -116,9 +120,10 @@ export default {
 
     deleteBatch() {
       const me = this;
+      me.isShowBatchAction = false;
       me.setAlert({
         type: Alert.WARNING,
-        message: "Bạn chắc chắn muốn xóa những nhân viên đã chọn !",
+        message: "Bạn có thực sự muốn xóa những nhân viên đã chọn không?",
         action: AlertAction.CONFIRM_DELETE_BATCH,
       });
     },
@@ -142,10 +147,22 @@ export default {
         me.getEmployees();
       }, 1000);
     },
+
+    /**
+     * ẩn hiện list batch action
+     * Author: VDTIEN (14/11/2022)
+     */
+    toggleBatchAction() {
+      const me = this;
+      if (me.checkedEmployeeIDs.length > 0) {
+        me.isShowBatchAction = !me.isShowBatchAction;
+      }
+    },
   },
   data() {
     return {
       isStore: false,
+      isShowBatchAction: false,
     };
   },
 };
