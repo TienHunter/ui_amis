@@ -115,6 +115,7 @@ const mutations = {
     */
    SET_EMPLOYEE(state, payload) {
       state.employee = { ...payload };
+      state.preEmployee = { ...payload };
    },
 
    /**
@@ -134,6 +135,7 @@ const mutations = {
     */
    SET_NEW_EMPLOYEE_CODE(state, payload) {
       state.employee.EmployeeCode = payload;
+      state.preEmployee.EmployeeCode = payload;
    },
    // formMode
    // filter

@@ -355,11 +355,16 @@ export default {
      */
     onClickBtnClose() {
       const me = this;
-      me.setAlert({
-        type: Alert.INFO,
-        message: AlertMsg.ConfirmStore,
-        action: AlertAction.CONFIRM_STORE,
-      });
+      if (JSON.stringify(me.employee) == JSON.stringify(me.preEmployee)) {
+        me.toggleEmployeeDetail();
+      } else {
+        
+        me.setAlert({
+          type: Alert.INFO,
+          message: AlertMsg.ConfirmStore,
+          action: AlertAction.CONFIRM_STORE,
+        });
+      }
     },
 
     /**

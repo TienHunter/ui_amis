@@ -298,7 +298,6 @@ const actions = {
             } else {
                // Cất và thêm
                dispatch("initValueForm");
-               dispatch("x");
             }
 
             //load lại dữ liệu
@@ -327,7 +326,6 @@ const actions = {
       dispatch("setFormMode", FORM_MODE.STORE);
       dispatch("setEmployee", { Gender: GENDER.MALE });
       dispatch("setNewEmployeeCode");
-      dispatch("initPreEmployee");
    },
 
    /**

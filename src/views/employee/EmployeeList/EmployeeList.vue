@@ -116,7 +116,7 @@ export default {
       "setDepartments",
       "setFilter",
       "initValueForm",
-      "initPreEmployee"
+      "initPreEmployee",
     ]),
 
     /**
@@ -127,7 +127,6 @@ export default {
       const me = this;
       me.toggleEmployeeDetail();
       me.initValueForm();
-      me.initPreEmployee();
     },
 
     deleteBatch() {
