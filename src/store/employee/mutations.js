@@ -118,6 +118,16 @@ const mutations = {
    },
 
    /**
+    * set các property cho employeeDetail trước khi thay đổi
+    * @param {*} state
+    * @param {*} payload
+    * Author VDTIEN(13/11/2022)
+    */
+   SET_PRE_EMPLOYEE(state) {
+      state.preEmployee = { ...state.employee };
+   },
+
+   /**
     * set mã nhân viên mới nhất cho employee state
     * @param {*} state
     * @param {*} payload

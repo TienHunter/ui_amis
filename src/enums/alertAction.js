@@ -8,8 +8,8 @@ const Alert = {
    SUCCESS: 1,
    INFO: 2,
    WARNING: 3,
-   DANGER: 4,
-   ERROR: 5,
+   ERROR: 4,
+   EXCEPTION: 5,
 };
 const AlertMessage = {};
 export { AlertAction, Alert, AlertMessage };

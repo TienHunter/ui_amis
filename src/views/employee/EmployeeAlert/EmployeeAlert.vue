@@ -7,7 +7,11 @@
             v-if="alert.type == Alert.WARNING"
             class="icon icon-warning"
           ></div>
-          <div v-if="alert.type == Alert.DANGER" class="icon icon-danger"></div>
+          <div
+            v-if="alert.type == Alert.EXCEPTION"
+            class="icon icon-warning"
+          ></div>
+          <div v-if="alert.type == Alert.ERROR" class="icon icon-danger"></div>
           <div v-if="alert.type == Alert.INFO" class="icon icon-question"></div>
           <div
             v-if="alert.type == Alert.SUCCESS"
@@ -38,13 +42,13 @@
         </div>
 
         <div
-          v-if="alert.type == Alert.DANGER || alert.type == Alert.SUCCESS"
+          v-if="alert.type == Alert.ERROR || alert.type == Alert.SUCCESS ||  alert.type == Alert.EXCEPTION"
           class="alert-danger-footer d-flex"
         >
           <MsButton
             @click="toggleAlert"
             :isPrimary="true"
-            :title="'Đóng'"
+            :title="alert.type == Alert.EXCEPTION ? 'Đồng ý' : 'Đóng'"
             tabindex="1"
           />
         </div>
@@ -80,7 +84,7 @@ export default {
       "getEmployees",
       "toggleEmployeeDetail",
       "addEmployee",
-      "setEmployee"
+      "setEmployee",
     ]),
 
     /**
@@ -90,6 +94,7 @@ export default {
     confirmClick() {
       const me = this;
 
+      // khi click vào btn close hiện lên cảnh báo dữ liệu thay đổi
       if (me.alert.action == AlertAction.CONFIRM_STORE) {
         me.$emit("confirmStore");
       }

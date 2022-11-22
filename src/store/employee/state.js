@@ -3,7 +3,7 @@ import { FIELD_NAME } from "@/i18n";
 const state = {
    isLoading: false,
    isEmployeeDetail: false,
-   employeeDetailTitle: "Thêm khách hàng",
+   employeeDetailTitle: FIELD_NAME.ADD_EMPLOYEE,
    isAlert: false,
    formMode: 0,
    filter: {
@@ -13,6 +13,7 @@ const state = {
    },
    employeeList: [],
    employee: {},
+   preEmployee: {},
    totalRecords: 0,
    totalPages: 0,
    checkedEmployeeIDs: [],

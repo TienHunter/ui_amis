@@ -38,15 +38,15 @@
                   ref="EmployeeCode"
                   :inputLabel="FIELD_NAME.EmployeeCode"
                   :inputWidth="'width-40'"
-                  :inputRequired="'required'"
+                  :inputRequired="true"
                   v-model="employee.EmployeeCode"
                   :errorMess="errors.EmployeeCode"
                   :tabIndex="2"
                 />
                 <MsInput
-                  :inputLabel="'Tên'"
+                  :inputLabel="FIELD_NAME.EmployeeName"
                   :inputWidth="'flex-1'"
-                  :inputRequired="'required'"
+                  :inputRequired="true"
                   v-model="employee.EmployeeName"
                   :errorMess="errors.EmployeeName"
                   :tabIndex="3"
@@ -61,8 +61,8 @@
                 <MsComboBox
                   :errorMess="errors.DepartmentName"
                   :className="'department-list'"
-                  :dataList="departments.map((dp) => dp.DepartmentName)"
-                  :selectedItem="employee.DepartmentName"
+                  :dataList="departmentList"
+                  :selectedItem="employee.DepartmentID"
                   @selectAction="selectDepartment"
                   :tabIndex="4"
                 />
@@ -251,6 +251,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { FORM_MODE, Alert, AlertAction } from "@/enums";
+import { AlertMsg, ErrorMsg } from "@/i18n";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import MsComboBox from "@/components/base/MSComboBox/MsComboBox.vue";
@@ -263,6 +264,15 @@ export default {
   props: ["isStore"],
   emits: ["confirmStoreDone"],
 
+  created() {
+    const me = this;
+    me.departments.forEach((element) => {
+      let item = {};
+      item.value = element.DepartmentID;
+      item.text = element.DepartmentName;
+      me.departmentList.push(item);
+    });
+  },
   mounted() {
     const me = this;
     me.$refs.EmployeeCode.$el.querySelector("input").focus();
@@ -296,6 +306,7 @@ export default {
       "formMode",
       "alert",
       "departments",
+      "preEmployee",
     ]),
   },
   methods: {
@@ -346,7 +357,7 @@ export default {
       const me = this;
       me.setAlert({
         type: Alert.INFO,
-        message: "Dữ liệu đã thay đổi bạn có muốn cất không ?",
+        message: AlertMsg.ConfirmStore,
         action: AlertAction.CONFIRM_STORE,
       });
     },
@@ -380,14 +391,10 @@ export default {
      * @param {String} departmentName
      * Author: VDTIEN (14/11/2022)
      */
-    selectDepartment(departmentName) {
+    selectDepartment(department) {
       const me = this;
-      me.employee.DepartmentName = departmentName;
-      for (const dp of me.departments) {
-        if (dp.DepartmentName == departmentName) {
-          me.employee.DepartmentID = dp.DepartmentID;
-        }
-      }
+      me.employee.DepartmentID = department.value;
+      me.employee.DepartmentName = department.text;
     },
     /**
      * Validator dữ liệu
@@ -400,29 +407,28 @@ export default {
       me.errors = {};
 
       // Mã không được để trống
-      if (
+      let checkEmployeeCodeEmpty =
         !me.employee.EmployeeCode ||
-        (me.employee.EmployeeCode && !me.employee.EmployeeCode.trim())
-      ) {
-        me.errors.EmployeeCode = "Mã nhân viên không được để trống";
+        (me.employee.EmployeeCode && !me.employee.EmployeeCode.trim());
+      if (checkEmployeeCodeEmpty) {
+        me.errors.EmployeeCode = ErrorMsg.EmployeeCodeEmppty;
       } else {
-        if (!me.employee.EmployeeCode.match(/(NV)(\d+)/)) {
-          me.errors.EmployeeCode =
-            "Mã nhân viên không đúng định dạng <NV><Mã số>";
+        if (!me.employee.EmployeeCode.match(/^(NV-)(\d+)$/)) {
+          me.errors.EmployeeCode = ErrorMsg.EmployeeCodeFormat;
         }
       }
 
       // Tên không được để trống
-      if (
+      let checkEmployeeNameEmpty =
         !me.employee.EmployeeName ||
-        (me.employee.EmployeeName && !me.employee.EmployeeName.trim())
-      ) {
-        me.errors.EmployeeName = "Tên không được để trống";
+        (me.employee.EmployeeName && !me.employee.EmployeeName.trim());
+      if (checkEmployeeNameEmpty) {
+        me.errors.EmployeeName = ErrorMsg.EmployeeNameEmpty;
       }
 
       // Đơn vị không được để trống
       if (!me.employee.DepartmentName) {
-        me.errors.DepartmentName = "Đơn vị không được để trống";
+        me.errors.DepartmentName = ErrorMsg.DepartmentEmpty;
       }
 
       // Ngày sinh không được lớn hơn hiện tại
@@ -430,7 +436,7 @@ export default {
         let currentDate = new Date().getTime();
         let dof = Date.parse(me.employee.DateOfBirth);
         if (dof > currentDate) {
-          me.errors.DateOfBirth = "Ngày sinh không được lớn hơn hiện tại";
+          me.errors.DateOfBirth = ErrorMsg.DateOfBirth;
         }
       }
 
@@ -439,7 +445,7 @@ export default {
         let currentDate = new Date().getTime();
         let identityDate = Date.parse(me.employee.DateOfBirth);
         if (identityDate > currentDate) {
-          me.errors.IdentityDate = "Ngày cấp không được lớn hơn hiện tại";
+          me.errors.IdentityDate = ErrorMsg.IdentityDate;
         }
       }
 
@@ -448,20 +454,19 @@ export default {
         var mailFormat =
           /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+)((\.[a-zA-Z0-9-]{2,3})+)$/;
         if (!me.employee.Email.match(mailFormat)) {
-          me.errors.Email = "Email không đúng định dạng";
+          me.errors.Email = ErrorMsg.Email;
         }
       }
 
       // Kiểm tra xem có lỗi nào không
       if (Object.keys(me.errors).length == 0) {
         isValid = true;
+      } else {
+        me.setAlert({
+          type: Alert.ERROR,
+          message: Object.values(me.errors)[0],
+        });
       }
-      // else {
-      //   me.setAlert({
-      //     type: Alert.DANGER,
-      //     message: Object.values(me.errors)[0],
-      //   });
-      // }
       return isValid;
     },
 
@@ -505,6 +510,7 @@ export default {
   data() {
     return {
       errors: {},
+      departmentList: [],
     };
   },
 };

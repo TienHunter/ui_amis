@@ -13,5 +13,6 @@ const getters = {
    FIELD_NAME: (state) => state.FIELD_NAME,
    GENDER: (state) => state.GENDER,
    alert: (state) => state.alert,
+   preEmployee: (state) => state.preEmployee,
 };
 export default getters;

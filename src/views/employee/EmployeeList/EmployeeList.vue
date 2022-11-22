@@ -16,7 +16,12 @@
           <div class="batch-action d-flex" style="flex-direction: column">
             <button class="btn-batch" @click.stop="toggleBatchAction">
               <span class="batch-action-title">Thực hiện hàng loạt</span>
-              <div class="icon icon--arrow-up-black"></div>
+              <div
+                class="icon icon--arrow-up-black"
+                :style="
+                  checkedEmployeeIDs.length > 0 ? 'opacity:1' : 'opacity:0.5'
+                "
+              ></div>
             </button>
             <ul
               class="list-batch-action"
@@ -36,7 +41,11 @@
             v-model="filter.employeeFilter"
           />
           <div class="main-content-tools d-flex">
-            <div class="icon-wrapper" title="Refresh" @click="getEmployees">
+            <div
+              class="icon-wrapper"
+              title="Load lại dữ liệu"
+              @click="getEmployees"
+            >
               <div class="icon icon--refresh"></div>
             </div>
             <div class="icon-wrapper">
@@ -60,6 +69,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { Alert, AlertAction } from "@/enums";
+import { AlertMsg } from "@/i18n";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
 import EmployeeTable from "@/views/employee/EmployeeTable/EmployeeTable.vue";
@@ -106,6 +116,7 @@ export default {
       "setDepartments",
       "setFilter",
       "initValueForm",
+      "initPreEmployee"
     ]),
 
     /**
@@ -116,6 +127,7 @@ export default {
       const me = this;
       me.toggleEmployeeDetail();
       me.initValueForm();
+      me.initPreEmployee();
     },
 
     deleteBatch() {
@@ -123,7 +135,7 @@ export default {
       me.isShowBatchAction = false;
       me.setAlert({
         type: Alert.WARNING,
-        message: "Bạn có thực sự muốn xóa những nhân viên đã chọn không?",
+        message: AlertMsg.ConfirmDeleteBatch,
         action: AlertAction.CONFIRM_DELETE_BATCH,
       });
     },

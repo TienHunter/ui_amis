@@ -23,9 +23,9 @@
    justify-content: space-between;
    margin-bottom: 24px;
 }
-.main-content-tools .m-icon-wrapper:hover {
+/* .main-content-tools .m-icon-wrapper:hover {
    background-color: rgba(231, 220, 220, 0.657);
-}
+} */
 .main-content__table {
    flex: 1;
    height: calc(100% - 76px);

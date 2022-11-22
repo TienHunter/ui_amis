@@ -12,7 +12,7 @@
         :placeholder="placeholder"
         :tabindex="tabIndex"
         :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @input="$emit('update:modelValue', $event.target.value.trim())"
         v-on:keyup="$emit('keyup')"
       />
       <div v-if="icon" class="icon" :class="icon"></div>
@@ -31,7 +31,10 @@ export default {
     inputLabel: String,
     tooltip: String,
     inputRequired: Boolean,
-    modelValue: String,
+    modelValue: {
+      type: String,
+      default: "",
+    },
     placeholder: String,
     icon: String,
     errorMess: String,

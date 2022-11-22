@@ -8,15 +8,9 @@
     <div class="pagination__right d-flex">
       <div class="record-in-page">
         <MsComboBox
-          :dataList="[
-            '10 bản ghi trên 1 trang',
-            '20 bản ghi trên 1 trang',
-            '30 bản ghi trên 1 trang',
-            '50 bản ghi trên 1 trang',
-            '100 bản ghi trên 1 trang',
-          ]"
+          :dataList="dataPageSize"
           :className="'page-size-list'"
-          :selectedItem="filter.pageSize + ' bản ghi trên 1 trang'"
+          :selectedItem="filter.pageSize"
           @selectAction="selectPageSize"
         />
       </div>
@@ -148,7 +142,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-
+import { dataPageSize } from "@/i18n";
 import MsComboBox from "@/components/base/MSComboBox/MsComboBox.vue";
 export default {
   components: {
@@ -162,14 +156,13 @@ export default {
 
     /**
      * chọn số lượng bản ghi mỗi trang
-     * @param {int} pageSize
+     * @param {object} pageItem
      * Author: VDTIEN (14/11/2022)
      */
-    selectPageSize(pageSize) {
-      pageSize = pageSize.split(" ")[0];
+    selectPageSize(pageItem) {
       const me = this;
       me.setFilter({
-        pageSize: pageSize,
+        pageSize: pageItem.value,
         pageNumber: 1,
         employeeFilter: me.filter.employeeFilter,
       });
@@ -218,6 +211,11 @@ export default {
       });
       me.getEmployees();
     },
+  },
+  data() {
+    return {
+      dataPageSize,
+    };
   },
 };
 </script>

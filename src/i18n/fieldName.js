@@ -1,6 +1,6 @@
 const FIELD_NAME = {
-   ADD_EMPLOYEE: "Thêm mới nhân viên",
-   EDIT_EMPLOYEE: "Chỉnh sửa nhân viên",
+   ADD_EMPLOYEE: "Thêm nhân viên",
+   EDIT_EMPLOYEE: "Sửa nhân viên",
    EmployeeCode: "Mã nhân viên",
    EmployeeName: "Tên nhân viên",
    DepartmentName: "Tên đơn vị",

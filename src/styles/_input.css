@@ -86,7 +86,7 @@
    align-items: center;
 }
 .wrapper-checkbox + .wrapper-checkbox {
-   margin-left: 12px;
+   margin-left: 20px;
 }
 input[type="checkbox"] {
    appearance: none;

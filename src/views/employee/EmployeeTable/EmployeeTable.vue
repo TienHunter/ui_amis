@@ -139,6 +139,7 @@ export default {
       "employeeList",
       "checkedEmployeeIDs",
       "employee",
+      "FIELD_NAME",
     ]),
   },
   methods: {
@@ -240,7 +241,7 @@ export default {
      */
     onClickEditEmployee(emp) {
       const me = this;
-      me.setEmployeeDetailTitle("Sửa nhân viên");
+      me.setEmployeeDetailTitle(me.FIELD_NAME.EDIT_EMPLOYEE);
       me.setFormMode(FORM_MODE.EDIT);
       me.setEmployee(emp);
       me.toggleEmployeeDetail();
@@ -253,7 +254,7 @@ export default {
      */
     onClickDuplicateEmployee(emp) {
       const me = this;
-      me.setEmployeeDetailTitle("Thêm nhân viên");
+      me.setEmployeeDetailTitle(me.FIELD_NAME.ADD_EMPLOYEE);
       me.setFormMode(FORM_MODE.STORE);
       me.setEmployee(emp);
       me.setNewEmployeeCode();

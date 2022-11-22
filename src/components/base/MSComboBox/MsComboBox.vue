@@ -4,19 +4,22 @@
       <input
         class="input"
         type="text"
-        :value="selectedItem"
+        :value="selectedItemText"
         readonly
         :tabindex="tabIndex"
         :class="{ 'input-error': errorMess }"
       />
       <div class="combobox-button d-flex-auto" @click.stop="toggleList">
-        <div class="icon icon--chervon-down"></div>
+        <div
+          class="icon icon--arrow-up-black"
+          :style="
+            isShowList
+              ? 'transform: rotate(180deg);transition: 0.2s linear;'
+              : 'transform: rotate(0);transition: 0.2s linear;'
+          "
+        ></div>
       </div>
-      <span
-        v-if="errorMess"
-        class="msg-input-error"
-        :title="errorMess"
-      >
+      <span v-if="errorMess" class="msg-input-error" :title="errorMess">
         {{ errorMess }}
       </span>
     </div>
@@ -26,10 +29,10 @@
         v-for="(item, index) in dataList"
         :key="index"
         class="data-item"
-        :class="{ checked: selectedItem == item }"
+        :class="{ checked: selectedItem == item.value }"
         @click="emitItem(item)"
       >
-        {{ item }}
+        {{ item.text }}
       </div>
     </div>
   </div>
@@ -37,7 +40,16 @@
 
 <script>
 export default {
-  props: ["selectedItem", "className", "dataList", "errorMess", "tabIndex"],
+  props: ["className", "dataList", "errorMess", "tabIndex", "selectedItem"],
+  computed: {
+    selectedItemText() {
+      const me = this;
+      for (let i = 0; i < me.dataList.length; i++) {
+        if (me.selectedItem == me.dataList[i].value) return me.dataList[i].text;
+      }
+      return "";
+    },
+  },
   emits: ["selectAction"],
   created() {
     const me = this;
