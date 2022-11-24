@@ -254,7 +254,6 @@ const actions = {
             } else {
                // Cất và thêm
                dispatch("initValueForm");
-               dispatch("initPreEmployee");
             }
 
             // dispatch("getEmployees");
@@ -328,12 +327,30 @@ const actions = {
       dispatch("setNewEmployeeCode");
    },
 
-   /**
-    * set giá trị employee trước khi thay đổi
-    * @param {*} param0
-    */
-   initPreEmployee({ commit }) {
-      commit("SET_PRE_EMPLOYEE");
+   async exportToExcel({ dispatch, state }) {
+      try {
+         let res = await employeeRequest.exportEmployeeToExcel(
+            state.filter.employeeFilter
+         );
+
+         //https://stackoverflow.com/questions/41938718/how-to-download-files-using-axios
+         // create file link in browser's memory
+         const href = URL.createObjectURL(res);
+
+         // create "a" HTML element with href to file & click
+         const link = document.createElement("a");
+         link.href = href;
+         link.setAttribute("download", `Danh_sach_nhan_vien${Date.now()}.xlsx`); //or any other extension
+         document.body.appendChild(link);
+         link.click();
+
+         // clean up "a" element & remove ObjectURL
+         document.body.removeChild(link);
+         URL.revokeObjectURL(href);
+      } catch (error) {
+         console.log(error);
+         hanldeException(dispatch, error);
+      }
    },
 };
 /**

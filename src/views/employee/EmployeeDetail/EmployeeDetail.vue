@@ -254,7 +254,7 @@ import { FORM_MODE, Alert, AlertAction } from "@/enums";
 import { AlertMsg, ErrorMsg } from "@/i18n";
 import MsButton from "@/components/base/MsButton/MsButton.vue";
 import MsInput from "@/components/base/MsInput/MsInput.vue";
-import MsComboBox from "@/components/base/MSComboBox/MsComboBox.vue";
+import MsComboBox from "@/components/base/MsComboBox/MsComboBox.vue";
 export default {
   components: {
     MsButton,
@@ -358,7 +358,6 @@ export default {
       if (JSON.stringify(me.employee) == JSON.stringify(me.preEmployee)) {
         me.toggleEmployeeDetail();
       } else {
-        
         me.setAlert({
           type: Alert.INFO,
           message: AlertMsg.ConfirmStore,

@@ -6,6 +6,7 @@ const getDepartments = async () => {
       return res.data;
    } catch (error) {
       console.log(error);
+      throw error;
    }
 };
 export { getDepartments };

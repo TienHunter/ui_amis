@@ -143,7 +143,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { dataPageSize } from "@/i18n";
-import MsComboBox from "@/components/base/MSComboBox/MsComboBox.vue";
+import MsComboBox from "@/components/base/MsComboBox/MsComboBox.vue";
 export default {
   components: {
     MsComboBox,

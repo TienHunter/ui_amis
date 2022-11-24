@@ -5,33 +5,77 @@ const getEmployees = async (
    keyWord = "",
    sort = ""
 ) => {
-   let limit = pageeSize,
-      offset = (pageNumber - 1) * pageeSize;
-   let res = await httpEmployee.get(
-      `filter?limit=${limit}&offset=${offset}&keyWord=${keyWord}&sort=${sort}`
-   );
-   return res.data;
+   try {
+      let limit = pageeSize,
+         offset = (pageNumber - 1) * pageeSize;
+      let res = await httpEmployee.get(
+         `filter?limit=${limit}&offset=${offset}&keyWord=${keyWord}&sort=${sort}`
+      );
+      return res.data;
+   } catch (error) {
+      console.log(error);
+      throw error;
+   }
 };
 const deleteEmployee = async (employeeID) => {
-   let res = await httpEmployee.delete(`${employeeID}`);
-   return res.data;
+   try {
+      let res = await httpEmployee.delete(`${employeeID}`);
+      return res.data;
+   } catch (error) {
+      console.log(error);
+      throw error;
+   }
 };
 const deleteBatchEmployee = async (listEmployeeID) => {
-   let res = await httpEmployee.post("deleteBatch", listEmployeeID);
-   return res.data;
+   try {
+      let res = await httpEmployee.post("deleteBatch", listEmployeeID);
+      return res.data;
+   } catch (error) {
+      console.log(error);
+      throw error;
+   }
 };
 const getEmployeeCodeMax = async () => {
-   let res = await httpEmployee.get("EmployeeCodeMax");
-   return res.data;
+   try {
+      let res = await httpEmployee.get("EmployeeCodeMax");
+      return res.data;
+   } catch (error) {
+      console.log(error);
+      throw error;
+   }
 };
 const createEmployee = async (employee) => {
-   let res = await httpEmployee.post("", employee);
-   return res.data;
+   try {
+      let res = await httpEmployee.post("", employee);
+      return res.data;
+   } catch (error) {
+      console.log(error);
+      throw error;
+   }
 };
 
 const updateEmployee = async (employee) => {
-   let res = await httpEmployee.put(`${employee.EmployeeID}`, employee);
-   return res.data;
+   try {
+      let res = await httpEmployee.put(`${employee.EmployeeID}`, employee);
+      return res.data;
+   } catch (error) {
+      console.log(error);
+      throw error;
+   }
+};
+const exportEmployeeToExcel = async (keyword) => {
+   try {
+      let res = await httpEmployee.get("export", {
+         responseType: "blob", // important
+         params: {
+            keyword: keyword,
+         },
+      });
+      return res.data;
+   } catch (error) {
+      console.log(error);
+      throw error;
+   }
 };
 export {
    getEmployees,
@@ -40,4 +84,5 @@ export {
    getEmployeeCodeMax,
    createEmployee,
    updateEmployee,
+   exportEmployeeToExcel,
 };

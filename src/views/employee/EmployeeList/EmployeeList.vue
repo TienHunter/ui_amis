@@ -48,7 +48,8 @@
             >
               <div class="icon icon--refresh"></div>
             </div>
-            <div class="icon-wrapper">
+
+            <div class="icon-wrapper" @click="exportToExcel">
               <div class="icon icon--excel"></div>
             </div>
           </div>
@@ -117,6 +118,7 @@ export default {
       "setFilter",
       "initValueForm",
       "initPreEmployee",
+      "exportToExcel",
     ]),
 
     /**

@@ -14,44 +14,44 @@
               "
             />
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th style="min-width: 160px; width: 160px" class="">
             {{ FIELD_NAME.EmployeeCode.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th style="min-width: 160px; width: 160px" class="">
             {{ FIELD_NAME.EmployeeName.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th style="min-width: 160px; width: 160px" class="">
             {{ FIELD_NAME.Gender.toUpperCase() }}
           </th>
-          <th
-            style="min-width: 160px; width: 160px"
-            class="hide-text-ellipsis text-center"
-          >
+          <th style="min-width: 160px; width: 160px" class="text-center">
             {{ FIELD_NAME.DateOfBirth.toUpperCase() }}
           </th>
           <th
             style="min-width: 160px; width: 160px"
-            class="hide-text-ellipsis"
+            class=""
             title="Số chứng minh nhân dân"
           >
             {{ FIELD_NAME.IdentityNumber.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th style="min-width: 160px; width: 160px" class="">
             {{ FIELD_NAME.JobPositionName.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th style="min-width: 160px; width: 160px" class="">
             {{ FIELD_NAME.DepartmentName.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th style="min-width: 160px; width: 160px" class="">
             {{ FIELD_NAME.BankAccountNumber.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th style="min-width: 160px; width: 160px" class="">
             {{ FIELD_NAME.BankName.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="hide-text-ellipsis">
+          <th style="min-width: 160px; width: 160px" class="">
             {{ FIELD_NAME.BankBranchName.toUpperCase() }}
           </th>
-          <th style="min-width: 120px" class="th-anchor th-anchor--end">
+          <th
+            style="min-width: 120px; width: 120px"
+            class="th-anchor th-anchor--end"
+          >
             {{ FIELD_NAME.Action.toUpperCase() }}
           </th>
         </tr>
