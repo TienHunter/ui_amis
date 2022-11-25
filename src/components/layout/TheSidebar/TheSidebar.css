@@ -5,7 +5,7 @@
    overflow-y: auto;
 }
 .sidebar--collapse {
-   width: 82px !important;
+   width: auto;
 }
 .sidebar-content {
    padding: 20px 12px 0px;
@@ -30,4 +30,7 @@
 }
 .sidebar-item .icon {
    margin: 0 12px;
+}
+.sidebar--collapse .sidebar-text {
+   display: none;
 }

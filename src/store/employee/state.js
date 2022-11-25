@@ -3,6 +3,7 @@ import { FIELD_NAME } from "@/i18n";
 const state = {
    isLoading: false,
    isEmployeeDetail: false,
+   isCollapseSidebar: false,
    employeeDetailTitle: FIELD_NAME.ADD_EMPLOYEE,
    isAlert: false,
    formMode: 0,

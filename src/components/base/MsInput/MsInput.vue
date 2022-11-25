@@ -12,7 +12,7 @@
         :placeholder="placeholder"
         :tabindex="tabIndex"
         :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value.trim())"
+        @input="$emit('update:modelValue', $event.target.value)"
         v-on:keyup="$emit('keyup')"
       />
       <div v-if="icon" class="icon" :class="icon"></div>

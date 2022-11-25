@@ -1,14 +1,20 @@
 <template>
   <div class="header d-flex">
-    <div class="header__left d-flex">
+    <div
+      class="header__left d-flex"
+      :style="isCollapseSidebar ? 'display:none' : ''"
+    >
       <div class="header-left__button">
         <div class="icon icon--option"></div>
       </div>
       <div class="header-left__logo"></div>
     </div>
     <div class="header__right d-flex">
-      <div class="toggle-sidebar d-flex">
-        <div class="icon icon--menu"></div>
+      <div
+        class="toggle-sidebar d-flex"
+        :class="{ 'collapse-sidebar': isCollapseSidebar }"
+      >
+        <div class="icon icon--menu" @click="toggleCollapseSidebar"></div>
       </div>
       <div class="header-right__title d-flex">
         <span
@@ -41,8 +47,14 @@
 </template>
  
  <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "the-header",
+  computed: {
+    ...mapGetters(["isCollapseSidebar"]),
+  },
+  methods: {
+    ...mapActions(["toggleCollapseSidebar"]),
+  },
 };
 </script>
  <style>

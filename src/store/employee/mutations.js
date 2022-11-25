@@ -10,6 +10,14 @@ const mutations = {
    },
 
    /**
+    * thu phóng sidebar
+    * @param {*} state
+    * Author VDTIEN(13/11/2022)
+    */
+   TOGGLE_COLLAPSE_SIDEBAR(state) {
+      state.isCollapseSidebar = !state.isCollapseSidebar;
+   },
+   /**
     * ẩn/ hiện EmployeeDetail Component
     * @param {*} state
     * Author VDTIEN(13/11/2022)

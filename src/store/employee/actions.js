@@ -40,6 +40,15 @@ const actions = {
    },
 
    /**
+    * thu phóng sidebar
+    * @param {*} state
+    * Author VDTIEN(13/11/2022)
+    */
+   toggleCollapseSidebar({ commit }) {
+      commit("TOGGLE_COLLAPSE_SIDEBAR");
+   },
+
+   /**
     * Xử lý bộ lọc danh sách nhân viên
     * @param {*} param0
     * @param {object} filter

@@ -1,72 +1,103 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar" :class="{ 'sidebar--collapse': isCollapseSidebar }">
     <ul class="sidebar-content">
-      <li class="sidebar-item d-flex selected">
+      <li class="sidebar-item d-flex selected" :title="Sidebar.general">
         <div class="icon icon--general icon--general--selected"></div>
-        <span class="sidebar-text hide-text-ellipsis">Tổng quan</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.general
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.cash">
         <div class="icon icon--cash"></div>
-        <span class="sidebar-text hide-text-ellipsis">Tiền mặt</span>
+        <span class="sidebar-text hide-text-ellipsis">{{ Sidebar.cash }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.deposits">
         <div class="icon icon--deposits"></div>
-        <span class="sidebar-text hide-text-ellipsis">Tiền gửi</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.deposits
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.purchase">
         <div class="icon icon--purchase"></div>
-        <span class="sidebar-text hide-text-ellipsis">Mua hàng</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.purchase
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.sell">
         <div class="icon icon--sell"></div>
-        <span class="sidebar-text hide-text-ellipsis">Bán hàng</span>
+        <span class="sidebar-text hide-text-ellipsis">{{ Sidebar.sell }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.invoiceManagement">
         <div class="icon icon--billManagement"></div>
-        <span class="sidebar-text hide-text-ellipsis">Quản lý hóa đơn</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.invoiceManagement
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.warehouse">
         <div class="icon icon--warehouse"></div>
-        <span class="sidebar-text hide-text-ellipsis">Kho</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.warehouse
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.tools">
         <div class="icon icon--tools"></div>
-        <span class="sidebar-text hide-text-ellipsis">Công cụ dụng cụ</span>
+        <span class="sidebar-text hide-text-ellipsis">{{ Sidebar.tools }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.fixedAssets">
         <div class="icon icon--fixedAssets"></div>
-        <span class="sidebar-text hide-text-ellipsis">Tài sản cố định</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.fixedAssets
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.tax">
         <div class="icon icon--tax"></div>
-        <span class="sidebar-text hide-text-ellipsis">Thuế</span>
+        <span class="sidebar-text hide-text-ellipsis">{{ Sidebar.tax }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.price">
         <div class="icon icon--price"></div>
-        <span class="sidebar-text hide-text-ellipsis">Giá thành</span>
+        <span class="sidebar-text hide-text-ellipsis">{{ Sidebar.price }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.synthetic">
         <div class="icon icon--synthetic"></div>
-        <span class="sidebar-text hide-text-ellipsis">Tổng hợp</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.synthetic
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.budget">
         <div class="icon icon--budget"></div>
-        <span class="sidebar-text hide-text-ellipsis">Ngân sách</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.budget
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.report">
         <div class="icon icon--report"></div>
-        <span class="sidebar-text hide-text-ellipsis">Báo cáo</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.report
+        }}</span>
       </li>
-      <li class="sidebar-item d-flex">
+      <li class="sidebar-item d-flex" :title="Sidebar.financialAnalysis">
         <div class="icon icon--financialAnalysis"></div>
-        <span class="sidebar-text hide-text-ellipsis">Phân tích tài chính</span>
+        <span class="sidebar-text hide-text-ellipsis">{{
+          Sidebar.financialAnalysis
+        }}</span>
       </li>
     </ul>
   </div>
 </template>
  
  <script>
-export default {};
+import { mapGetters } from "vuex";
+import { Sidebar } from "@/i18n";
+export default {
+  computed: {
+    ...mapGetters(["isCollapseSidebar"]),
+  },
+  data() {
+    return {
+      Sidebar,
+    };
+  },
+};
 </script>
  
  <style>
