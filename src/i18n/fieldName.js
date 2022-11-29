@@ -14,7 +14,7 @@ const FIELD_NAME = {
    },
    IdentityNumber: "Số CMND",
    IdentityDate: "Ngày cấp",
-   IdentityPlace: "Noi cấp",
+   IdentityPlace: "Nơi cấp",
    Address: "Địa chỉ",
    PhoneNumber: "Số điện thoại",
    TelephoneNumber: "Điện thoại cố định",

@@ -1,6 +1,6 @@
 import * as employeeRequest from "../../services/employeeService";
 import { AlertAction, Alert, FORM_MODE, GENDER } from "@/enums";
-import { FIELD_NAME, AlertMsg } from "@/i18n";
+import { FIELD_NAME, AlertMsg, ToastContent, ToastTile } from "@/i18n";
 const actions = {
    /**
     * Lấy danh sách nhân viên theo bộ lọc và phân trang
@@ -121,11 +121,11 @@ const actions = {
             state.employee.EmployeeID
          );
          if (res) {
-            // thông báo thành công
-            dispatch("setAlert", {
+            //thông báo thành công
+            dispatch("setToast", {
                type: Alert.SUCCESS,
-               message: AlertMsg.DeleteSuccess,
-               action: AlertAction.DEFAULT,
+               title: ToastTile.success,
+               content: ToastContent.deleteSuccess,
             });
             //load lại bộ lọc
             let hasRecordsInPageEnd =
@@ -143,7 +143,7 @@ const actions = {
             // thông báo lỗi
             dispatch("setAlert", {
                type: Alert.ERROR,
-               message: AlertMsg.DeleteFailed,
+               message: [AlertMsg.DeleteFailed],
                action: AlertAction.DEFAULT,
             });
          }
@@ -151,6 +151,7 @@ const actions = {
       } catch (error) {
          console.log(error);
          dispatch("toggleLoading");
+         hanldeException(dispatch, error);
       }
    },
    /**
@@ -185,11 +186,11 @@ const actions = {
             state.checkedEmployeeIDs
          );
          if (res) {
-            // thông báo thành công
-            dispatch("setAlert", {
+            //thông báo thành công
+            dispatch("setToast", {
                type: Alert.SUCCESS,
-               message: AlertMsg.DeleteSuccess,
-               action: AlertAction.DEFAULT,
+               title: ToastTile.success,
+               content: ToastContent.deleteBatchSucess,
             });
             // kiểm tra xem con bản ghi ở trang cuối không
             let hasRecordsInPageEnd =
@@ -208,7 +209,7 @@ const actions = {
             // thông báo lỗi
             dispatch("setAlert", {
                type: Alert.ERROR,
-               message: AlertMsg.DeleteFailed,
+               message: [AlertMsg.DeleteFailed],
                action: AlertAction.DEFAULT,
             });
          }
@@ -246,10 +247,10 @@ const actions = {
          let res = await employeeRequest.createEmployee(state.employee);
          if (res) {
             //thông báo thành công
-            dispatch("setAlert", {
+            dispatch("setToast", {
                type: Alert.SUCCESS,
-               message: AlertMsg.InsertSuccess,
-               action: AlertAction.DEFAULT,
+               title: ToastTile.success,
+               content: ToastContent.insertSuccess,
             });
             //load lại dữ liệu
             state.employee.EmployeeID = res;
@@ -269,7 +270,7 @@ const actions = {
          } else {
             dispatch("setAlert", {
                type: Alert.ERROR,
-               message: AlertMsg.InsertFailed,
+               message: [AlertMsg.InsertFailed],
                action: AlertAction.DEFAULT,
             });
          }
@@ -293,10 +294,10 @@ const actions = {
          let res = await employeeRequest.updateEmployee(state.employee);
          if (res) {
             //thông báo thành công
-            dispatch("setAlert", {
+            dispatch("setToast", {
                type: Alert.SUCCESS,
-               message: AlertMsg.UpdateSuccess,
-               action: AlertAction.DEFAULT,
+               title: ToastTile.success,
+               content: ToastContent.updateSucess,
             });
             dispatch("setEmployee", {});
             // Check mode
@@ -313,7 +314,7 @@ const actions = {
          } else {
             dispatch("setAlert", {
                type: Alert.ERROR,
-               message: AlertMsg.UpdateFailed,
+               message: [AlertMsg.UpdateFailed],
                action: AlertAction.DEFAULT,
             });
          }
@@ -324,6 +325,7 @@ const actions = {
          dispatch("toggleLoading");
       }
    },
+
    /**
     * Khởi tạo câc giá trị ban đầu cho employeeDetail componentes
     * @param {*} param0
@@ -338,6 +340,7 @@ const actions = {
 
    async exportToExcel({ dispatch, state }) {
       try {
+         dispatch("toggleLoading");
          let res = await employeeRequest.exportEmployeeToExcel(
             state.filter.employeeFilter
          );
@@ -359,7 +362,38 @@ const actions = {
       } catch (error) {
          console.log(error);
          hanldeException(dispatch, error);
+      } finally {
+         dispatch("toggleLoading");
       }
+   },
+
+   /**
+    * Mở toast
+    * @param {*} param0
+    * Author: VDTien (13/11/2022)
+    */
+   showToast({ commit }) {
+      commit("SHOW_TOAST");
+   },
+
+   /**
+    * Dóng toast
+    * @param {*} param0
+    * Author: VDTien (13/11/2022)
+    */
+   closeToast({ commit }) {
+      commit("CLOSE_TOAST");
+   },
+
+   /**
+    * set các giá trị cho toast
+    * @param {*} param0
+    * @param {*} payload
+    * Author VDT (13/11/2022)
+    */
+   setToast({ dispatch, commit }, payload) {
+      commit("SET_TOAST", payload);
+      dispatch("showToast", payload);
    },
 };
 /**
@@ -369,10 +403,26 @@ const actions = {
  * Author: VDTien (13/11/2022)
  */
 function hanldeException(dispatch, error) {
-   let message = error?.response?.data?.UserMsg ?? AlertMsg.Exceptiom;
+   let message;
+   if (error?.response?.data?.MoreInfo && error?.response?.status == 400) {
+      let res = error?.response?.data?.MoreInfo;
+      if (typeof res === "object") {
+         message = [...Object.values(res)];
+      }
+   } else if (
+      error?.response?.data?.UserMsg &&
+      error?.response?.status == 500
+   ) {
+      message = [error?.response?.data?.UserMsg];
+   } else {
+      message = [AlertMsg.Exceptiom];
+   }
+   //let message = error?.response?.data?.MoreInfo ?? AlertMsg.Exceptiom;
+
+   console;
    dispatch("setAlert", {
-      type: Alert.EXCEPTION,
-      message: message,
+      type: Alert.ERROR,
+      message: [...message],
       action: AlertAction.DEFAULT,
    });
 }

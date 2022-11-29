@@ -41,15 +41,15 @@
             v-model="filter.employeeFilter"
           />
           <div class="main-content-tools d-flex">
-            <div
-              class="icon-wrapper"
-              title="Load lại dữ liệu"
-              @click="getEmployees"
-            >
+            <div class="icon-wrapper" title="Lấy lại dữ liệu" @click="loadData">
               <div class="icon icon--refresh"></div>
             </div>
 
-            <div class="icon-wrapper" @click="exportToExcel">
+            <div
+              class="icon-wrapper"
+              @click="exportToExcel"
+              title="Xuất ra Excel"
+            >
               <div class="icon icon--excel"></div>
             </div>
           </div>
@@ -65,6 +65,7 @@
     @confirmStoreDone="() => (this.isStore = false)"
   />
   <EmployeeAlert v-if="isAlert" @confirmStore="() => (this.isStore = true)" />
+  <MsToastMessage v-if="isToast" />
 </template>
 
 <script>
@@ -77,6 +78,7 @@ import EmployeeTable from "@/views/employee/EmployeeTable/EmployeeTable.vue";
 import EmployeePaging from "../EmployeePaging/EmployeePaging.vue";
 import EmployeeDetail from "../EmployeeDetail/EmployeeDetail.vue";
 import EmployeeAlert from "../EmployeeAlert/EmployeeAlert.vue";
+import MsToastMessage from "@/components/base/MsToastMessage/MsToastMessage.vue";
 export default {
   components: {
     MsButton,
@@ -85,6 +87,7 @@ export default {
     EmployeePaging,
     EmployeeDetail,
     EmployeeAlert,
+    MsToastMessage,
   },
   created() {
     const me = this;
@@ -102,6 +105,7 @@ export default {
       "employee",
       "isAlert",
       "filter",
+      "isToast",
     ]),
   },
   methods: {
@@ -136,7 +140,7 @@ export default {
       me.isShowBatchAction = false;
       me.setAlert({
         type: Alert.WARNING,
-        message: AlertMsg.ConfirmDeleteBatch,
+        message: [AlertMsg.ConfirmDeleteBatch],
         action: AlertAction.CONFIRM_DELETE_BATCH,
       });
     },
@@ -170,6 +174,20 @@ export default {
       if (me.checkedEmployeeIDs.length > 0) {
         me.isShowBatchAction = !me.isShowBatchAction;
       }
+    },
+
+    /**
+     * load lại dữ liệu khi click refresh
+     * Author: VDTIEN (14/11/2022)
+     */
+    loadData() {
+      const me = this;
+      me.setFilter({
+        pageSize: 10,
+        pageNumber: 1,
+        employeeFilter: "",
+      });
+      me.getEmployees();
     },
   },
   data() {

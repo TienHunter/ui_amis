@@ -79,50 +79,53 @@
                 <MsInput
                   :inputLabel="FIELD_NAME.DateOfBirth"
                   :inputType="'date'"
+                  :placeholder="'dd/mm/yyyy'"
                   :inputWidth="'width-40'"
                   v-model="employee.DateOfBirth"
                   :errorMess="errors.DateOfBirth"
                   :tabIndex="6"
                 />
 
-                <div class="flex-1 input-wrapper" style="padding-bottom: 16px">
+                <div class="flex-1 input-wrapper" style="padding-bottom: 16px" >
                   <label class="label-input" style="padding-bottom: unset">
                     {{ FIELD_NAME.Gender }}
                   </label>
                   <div class="d-flex" style="margin: 8px 0">
                     <div class="input-radio-wrapper">
-                      <label class="wrapper-radiobox">
+                      <label class="wrapper-radiobox" >
                         <input
                           type="radio"
                           class="mr-8"
                           name="gender"
                           :value="GENDER.MALE"
                           v-model="employee.Gender"
-                          tabIndex="7"
+                          :tabIndex="7"
                         />
                         {{ FIELD_NAME.GenderName.MALE }}
                       </label>
                     </div>
                     <div class="input-radio-wrapper">
-                      <label class="wrapper-radiobox">
+                      <label class="wrapper-radiobox" >
                         <input
                           type="radio"
                           class="mr-8"
                           name="gender"
                           :value="GENDER.FEMALE"
                           v-model="employee.Gender"
+                          :tabIndex="7"
                         />
                         {{ FIELD_NAME.GenderName.FEMALE }}
                       </label>
                     </div>
                     <div class="input-radio-wrapper">
-                      <label class="wrapper-radiobox">
+                      <label class="wrapper-radiobox" >
                         <input
                           type="radio"
                           class="mr-8"
                           name="gender"
                           :value="GENDER.OTHER"
                           v-model="employee.Gender"
+                          :tabIndex="7"
                         />
                         {{ FIELD_NAME.GenderName.OTHER }}
                       </label>
@@ -360,7 +363,7 @@ export default {
       } else {
         me.setAlert({
           type: Alert.INFO,
-          message: AlertMsg.ConfirmStore,
+          message: [AlertMsg.ConfirmStore],
           action: AlertAction.CONFIRM_STORE,
         });
       }
@@ -468,7 +471,7 @@ export default {
       } else {
         me.setAlert({
           type: Alert.ERROR,
-          message: Object.values(me.errors)[0],
+          message: [...Object.values(me.errors)],
         });
       }
       return isValid;
@@ -481,8 +484,8 @@ export default {
     storeEmployee() {
       const me = this;
       //validate dữ liệu
-      let isValid = me.validateData();
-
+     // let isValid = me.validateData();
+      let isValid = true;
       if (isValid) {
         if (
           me.formMode == FORM_MODE.STORE ||

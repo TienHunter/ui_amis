@@ -35,6 +35,7 @@
 }
 .department-list {
    top: calc(100% + 2px);
+   max-height: 200px;
 }
 .data-item {
    height: 36px;

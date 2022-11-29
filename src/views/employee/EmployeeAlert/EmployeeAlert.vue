@@ -19,7 +19,9 @@
           ></div>
         </div>
         <div class="alert-body__right">
-          {{ alert.message }}
+          <div v-for="(value, index) in alert.message" :key="index">
+            -{{ value }}
+          </div>
         </div>
       </div>
       <div class="alert-footer">
@@ -42,7 +44,11 @@
         </div>
 
         <div
-          v-if="alert.type == Alert.ERROR || alert.type == Alert.SUCCESS ||  alert.type == Alert.EXCEPTION"
+          v-if="
+            alert.type == Alert.ERROR ||
+            alert.type == Alert.SUCCESS ||
+            alert.type == Alert.EXCEPTION
+          "
           class="alert-danger-footer d-flex"
         >
           <MsButton

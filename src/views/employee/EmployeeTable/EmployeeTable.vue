@@ -14,13 +14,25 @@
               "
             />
           </th>
-          <th style="min-width: 160px; width: 160px" class="">
+          <th
+            style="min-width: 160px; width: 160px"
+            class=""
+            :title="FIELD_NAME.EmployeeCode.toUpperCase()"
+          >
             {{ FIELD_NAME.EmployeeCode.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="">
+          <th
+            style="min-width: 160px; width: 160px"
+            class=""
+            :title="FIELD_NAME.EmployeeName.toUpperCase()"
+          >
             {{ FIELD_NAME.EmployeeName.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="">
+          <th
+            style="min-width: 160px; width: 160px"
+            class=""
+            :title="FIELD_NAME.Gender.toUpperCase()"
+          >
             {{ FIELD_NAME.Gender.toUpperCase() }}
           </th>
           <th style="min-width: 160px; width: 160px" class="text-center">
@@ -33,19 +45,39 @@
           >
             {{ FIELD_NAME.IdentityNumber.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="">
+          <th
+            style="min-width: 160px; width: 160px"
+            class=""
+            :title="FIELD_NAME.JobPositionName.toUpperCase()"
+          >
             {{ FIELD_NAME.JobPositionName.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="">
+          <th
+            style="min-width: 160px; width: 160px"
+            class=""
+            :title="FIELD_NAME.DepartmentName.toUpperCase()"
+          >
             {{ FIELD_NAME.DepartmentName.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="">
+          <th
+            style="min-width: 160px; width: 160px"
+            class=""
+            :title="FIELD_NAME.BankAccountNumber.toUpperCase()"
+          >
             {{ FIELD_NAME.BankAccountNumber.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="">
+          <th
+            style="min-width: 160px; width: 160px"
+            class=""
+            :title="FIELD_NAME.BankName.toUpperCase()"
+          >
             {{ FIELD_NAME.BankName.toUpperCase() }}
           </th>
-          <th style="min-width: 160px; width: 160px" class="">
+          <th
+            style="min-width: 160px; width: 160px"
+            class=""
+            :title="FIELD_NAME.BankBranchName.toUpperCase()"
+          >
             {{ FIELD_NAME.BankBranchName.toUpperCase() }}
           </th>
           <th
@@ -61,6 +93,9 @@
           v-for="(item, index) in employeeList"
           :key="index"
           @dblclick="onClickEditEmployee(item)"
+          :class="{
+            'tr-checked': checkedEmployeeIDs.includes(item.EmployeeID),
+          }"
         >
           <td class="td-anchor td-anchor--start" @dblclick.stop>
             <input
@@ -229,7 +264,9 @@ export default {
       }
       me.setAlert({
         type: Alert.WARNING,
-        message: `Bạn có thực sự muốn xóa Nhân viên <${emp.EmployeeCode}> không?`,
+        message: [
+          `Bạn có thực sự muốn xóa Nhân viên <${emp.EmployeeCode}> không?`,
+        ],
         action: AlertAction.CONFIRM_DELETE,
       });
     },

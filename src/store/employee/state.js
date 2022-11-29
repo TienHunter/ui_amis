@@ -6,6 +6,7 @@ const state = {
    isCollapseSidebar: false,
    employeeDetailTitle: FIELD_NAME.ADD_EMPLOYEE,
    isAlert: false,
+   isToast: false,
    formMode: 0,
    filter: {
       pageSize: 10,
@@ -20,8 +21,13 @@ const state = {
    checkedEmployeeIDs: [],
    alert: {
       type: Alert.SUCCESS,
-      message: "",
+      message: [],
       action: AlertAction.DEFAULT,
+   },
+   toast: {
+      type: Alert.SUCCESS,
+      title: "",
+      content: "",
    },
    FIELD_NAME,
    GENDER,

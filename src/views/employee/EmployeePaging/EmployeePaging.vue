@@ -1,5 +1,5 @@
 <template>
-  <div class="table_pagination d-flex">
+  <div class="pagination-wrapper d-flex">
     <div class="pagination__left">
       Tổng số:
       <b> {{ totalRecords }} </b>
@@ -221,4 +221,5 @@ export default {
 </script>
 
 <style>
+@import url(./EmployeePaging.css)
 </style>

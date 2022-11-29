@@ -19,11 +19,11 @@
 }
 .alert-body {
    display: flex;
-   align-items: flex-start;
-   /* align-items: center; */
+   /* align-items: flex-start; */
+   align-items: center;
    /* jus   tify-content: center; */
    /* gap: 20px; */
-   /* padding-bottom: 20px; */
+   padding-bottom: 20px;
 }
 .alert-body__left {
    width: 48px;
@@ -39,9 +39,9 @@
    color: #111;
    /* overflow: auto; */
    max-height: 400px;
-   margin-bottom: 32px;
+   /* margin-bottom: 32px; */
    padding-left: 16px;
-   padding-top: 12px;
+   /* padding-top: 12px; */
 }
 .alert-footer {
    border-top: 1px solid #ccc;

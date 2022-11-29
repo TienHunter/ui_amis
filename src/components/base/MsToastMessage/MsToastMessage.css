@@ -1,0 +1,65 @@
+.toast-wrapper {
+   position: fixed;
+   right: 40px;
+   bottom: 40px;
+   display: block;
+   z-index: 10;
+   animation: fadeIn linear 0.5s forwards;
+}
+.toast-message {
+   width: 400px;
+   height: 56px;
+   display: flex;
+   align-items: center;
+   padding: 0 16px;
+   background-color: #fff;
+   border-radius: var(--border-radius);
+   border: 1px solid #ccc;
+   box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.078);
+}
+.toast-icon {
+   background: url(../../..//assets/img/Sprites.64af8f61.svg) no-repeat center;
+   width: 24px;
+   height: 24px;
+}
+.toast-success .toast-icon {
+   background-position: -1601px -257px;
+}
+.toast-content {
+   font-size: 14px;
+   color: #1f1f1f;
+   text-align: left;
+   flex: 1;
+}
+.toast-title {
+   font-weight: 700;
+   margin-left: 8px;
+   padding-right: 4px;
+}
+.toast-success .toast-title {
+   color: #50b83c;
+}
+/* .toast-text {
+ } */
+.toast-action {
+   font-size: 14px;
+   font-weight: 500;
+   color: #000;
+}
+.toast-close {
+   background-position: -1172px -356px !important;
+   cursor: pointer;
+}
+.toast-close:hover {
+   background-color: #f6f6f6;
+}
+@keyframes fadeIn {
+   from {
+      right: -450px;
+      opacity: 0;
+   }
+   to {
+      right: 40px;
+      opacity: 1;
+   }
+}

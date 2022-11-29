@@ -34,3 +34,9 @@
 .sidebar--collapse .sidebar-text {
    display: none;
 }
+/* scrollbar */
+.sidebar::-webkit-scrollbar {
+   width: 0 !important;
+   /* height: 10px; */
+   cursor: cell;
+}

@@ -145,11 +145,33 @@ const mutations = {
       state.employee.EmployeeCode = payload;
       state.preEmployee.EmployeeCode = payload;
    },
-   // formMode
-   // filter
-   // employeeList
-   // employee
-   // totalRecords
-   // totalPages
+
+   /**
+    * set các value cho property toast
+    * @param {*} state
+    * @param {*} payload
+    * Author VDTIEN(13/11/2022)
+    */
+   SET_TOAST(state, payload) {
+      state.toast = { ...payload };
+   },
+
+   /**
+    * Đóng toast
+    * @param {*} state
+    * Author VDTIEN (13/11/2022)
+    */
+   CLOSE_TOAST(state) {
+      state.isToast = false;
+   },
+
+   /**
+    * Mở toast
+    * @param {*} state
+    * Author VDTIEN (13/11/2022)
+    */
+   SHOW_TOAST(state) {
+      state.isToast = true;
+   },
 };
 export default mutations;

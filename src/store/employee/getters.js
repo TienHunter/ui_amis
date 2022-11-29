@@ -15,5 +15,7 @@ const getters = {
    alert: (state) => state.alert,
    preEmployee: (state) => state.preEmployee,
    isCollapseSidebar: (state) => state.isCollapseSidebar,
+   isToast: (state) => state.isToast,
+   toast: (state) => state.toast,
 };
 export default getters;
