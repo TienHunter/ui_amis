@@ -158,6 +158,7 @@ import {
   convertDateOfBirth,
   convertNullString,
   convertGenderName,
+  convertDateInput
 } from "@/utils/helper";
 import { Alert, AlertAction, FORM_MODE } from "@/enums";
 export default {
@@ -277,6 +278,12 @@ export default {
      * Author: VDTIEN (14/11/2022)
      */
     onClickEditEmployee(emp) {
+      if(emp?.DateOfBirth) {
+        emp.DateOfBirth = convertDateInput(emp.DateOfBirth)
+      }
+      if(emp?.IdentityDate) {
+        emp.IdentityDate = convertDateInput(emp.IdentityDate)
+      }
       const me = this;
       me.setEmployeeDetailTitle(me.FIELD_NAME.EDIT_EMPLOYEE);
       me.setFormMode(FORM_MODE.EDIT);

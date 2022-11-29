@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style>
-@import url(./styles/_base.css);
+@import url(./styles/base.css);
 .wrapper {
   display: flex;
   flex-direction: column;

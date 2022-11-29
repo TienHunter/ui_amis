@@ -7,7 +7,7 @@
         <span class="toast-text"> {{ toast.content }}</span>
       </div>
       <!-- <a href="" class="toast-action">Hoàn tác</a> -->
-      <button class="toast-icon toast-close" @click="closeToastMessage">
+      <button class="toast-icon toast-close" @click="closeToast">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>

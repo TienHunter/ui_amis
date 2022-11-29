@@ -11,8 +11,9 @@
    background: rgba(0, 0, 0, 0.4);
 }
 .alert-container {
-   width: 444px;
-   min-width: 444px;
+   /* width: 444px; */
+   min-width: 450px;
+   max-width: 500px;
    background-color: #fff;
    border-radius: 4px;
    padding: 32px;
@@ -34,7 +35,7 @@
 }
 .alert-body__right {
    flex: 1;
-   font-size: 13px;
+   font-size: 14px;
    line-height: 18px;
    color: #111;
    /* overflow: auto; */

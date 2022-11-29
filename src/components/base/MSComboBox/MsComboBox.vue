@@ -9,7 +9,12 @@
         :tabindex="tabIndex"
         :class="{ 'input-error': errorMess }"
       />
-      <div class="combobox-button d-flex-auto" @click.stop="toggleList">
+      <button
+        :tabindex="tabIndex"
+        type="button"
+        class="combobox-button d-flex-auto"
+        @click.stop="toggleList"
+      >
         <div
           class="icon icon--arrow-up-black"
           :style="
@@ -18,7 +23,7 @@
               : 'transform: rotate(0);transition: 0.2s linear;'
           "
         ></div>
-      </div>
+      </button>
       <span v-if="errorMess" class="msg-input-error" :title="errorMess">
         {{ errorMess }}
       </span>
@@ -87,4 +92,5 @@ export default {
 </script>
 
 <style>
+@import url(./MsComboBox.css);
 </style>

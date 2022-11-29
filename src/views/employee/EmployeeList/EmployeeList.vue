@@ -97,6 +97,10 @@ export default {
       me.isShowBatchAction = false;
     });
   },
+  // mounted() {
+  //   const me = this;
+  //   document.addEventListener("keydown", me.openForm());
+  // },
   computed: {
     ...mapGetters([
       "employeeList",

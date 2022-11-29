@@ -47,8 +47,6 @@ export default {
 </script>
 
 <style>
-@import url(../../../styles/_input.css);
-@import url(../../../styles/_icon.css);
 .input-wrapper label > .icon {
   position: absolute;
   right: 8px;

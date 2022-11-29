@@ -79,20 +79,19 @@
                 <MsInput
                   :inputLabel="FIELD_NAME.DateOfBirth"
                   :inputType="'date'"
-                  :placeholder="'dd/mm/yyyy'"
                   :inputWidth="'width-40'"
                   v-model="employee.DateOfBirth"
                   :errorMess="errors.DateOfBirth"
                   :tabIndex="6"
                 />
 
-                <div class="flex-1 input-wrapper" style="padding-bottom: 16px" >
+                <div class="flex-1 input-wrapper" style="padding-bottom: 16px">
                   <label class="label-input" style="padding-bottom: unset">
                     {{ FIELD_NAME.Gender }}
                   </label>
                   <div class="d-flex" style="margin: 8px 0">
                     <div class="input-radio-wrapper">
-                      <label class="wrapper-radiobox" >
+                      <label class="wrapper-radiobox">
                         <input
                           type="radio"
                           class="mr-8"
@@ -105,7 +104,7 @@
                       </label>
                     </div>
                     <div class="input-radio-wrapper">
-                      <label class="wrapper-radiobox" >
+                      <label class="wrapper-radiobox">
                         <input
                           type="radio"
                           class="mr-8"
@@ -118,7 +117,7 @@
                       </label>
                     </div>
                     <div class="input-radio-wrapper">
-                      <label class="wrapper-radiobox" >
+                      <label class="wrapper-radiobox">
                         <input
                           type="radio"
                           class="mr-8"
@@ -484,8 +483,8 @@ export default {
     storeEmployee() {
       const me = this;
       //validate dữ liệu
-     // let isValid = me.validateData();
-      let isValid = true;
+      let isValid = me.validateData();
+      // let isValid = true;
       if (isValid) {
         if (
           me.formMode == FORM_MODE.STORE ||
@@ -509,8 +508,13 @@ export default {
      */
     escKeydown(e) {
       const me = this;
+      //e.preventDefault();
       if (e.keyCode == 27 || e.which == 27) {
         me.onClickBtnClose();
+      } else if (e.ctrlKey && e.which == 119) {
+        me.saveData();
+      } else if (e.ctrlKey && e.which == 120) {
+        me.toggleEmployeeDetail();
       }
     },
   },
